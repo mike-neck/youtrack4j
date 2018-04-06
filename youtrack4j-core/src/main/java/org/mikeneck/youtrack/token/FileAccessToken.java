@@ -39,6 +39,11 @@ public class FileAccessToken implements AccessTokenCandidate {
     return new FileAccessToken(accessTokenFile);
   }
 
+  @NotNull
+  static FileAccessToken of(@NotNull final Path accessTokenFile) {
+    return new FileAccessToken(accessTokenFile);
+  }
+
   @Override
   public Optional<AccessToken> get() {
     try (final Reader reader = Files.newBufferedReader(accessTokenFile)) {

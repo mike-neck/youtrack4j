@@ -18,3 +18,7 @@ dependencies {
 
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.9.1'
 }
+
+test {
+    useJUnitPlatform()
+}
