@@ -15,15 +15,14 @@
  */
 package org.mikeneck.youtrack.token;
 
-import org.junit.jupiter.api.Test;
-import org.opentest4j.TestAbortedException;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
+import org.opentest4j.TestAbortedException;
 
 class FileAccessTokenTest {
 
