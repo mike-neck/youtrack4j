@@ -1,0 +1,16 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation group: 'org.asynchttpclient', name: 'async-http-client', version: '2.4.4'
+    api group: 'io.projectreactor', name: 'reactor-core', version: '3.1.6.RELEASE'
+
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.1.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.1.0'
+}

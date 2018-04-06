@@ -1,0 +1,14 @@
+plugins {
+    id 'base'
+}
+
+group = 'org.mikeneck.youtrack4j'
+version = '0.1'
+
+dependencies {
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}

@@ -1,0 +1,3 @@
+rootProject.name = 'youtrack4j'
+include 'youtrack4j-all'
+include 'youtrack4j-core'

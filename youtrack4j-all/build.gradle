@@ -1,0 +1,13 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    runtimeOnly group: 'org.asynchttpclient', name: 'async-http-client', version: '2.4.4'
+    runtimeOnly project(':youtrack4j-core')
+}
