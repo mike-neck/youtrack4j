@@ -9,4 +9,4 @@ out/
 *.jar
 !gradle/wrapper/gradle-wrapper.jar
 
-youtrack4j.properties
+youtrack.properties
