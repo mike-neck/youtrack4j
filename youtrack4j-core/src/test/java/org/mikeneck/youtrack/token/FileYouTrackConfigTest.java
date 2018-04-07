@@ -24,7 +24,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.TestAbortedException;
 
-class FileAccessTokenTest {
+class FileYouTrackConfigTest {
 
   private static Path resolveTestFile(final String testFileName) {
     final Path file = Paths.get("test", testFileName);
@@ -43,25 +43,25 @@ class FileAccessTokenTest {
 
   @Test
   void nonExistingFile() {
-    final FileAccessToken fileAccessToken =
-        FileAccessToken.of(Paths.get("not-existing.properties"));
-    final Optional<AccessToken> accessToken = fileAccessToken.get();
+    final FileYouTrackConfig fileYouTrackConfig =
+        FileYouTrackConfig.of(Paths.get("not-existing.properties"));
+    final Optional<AccessToken> accessToken = fileYouTrackConfig.get();
     assertThat(accessToken).isEmpty();
   }
 
   @Test
   void invalidFile() {
     final Path file = resolveTestFile("test.txt");
-    final FileAccessToken fileAccessToken = FileAccessToken.of(file);
-    final Optional<AccessToken> accessToken = fileAccessToken.get();
+    final FileYouTrackConfig fileYouTrackConfig = FileYouTrackConfig.of(file);
+    final Optional<AccessToken> accessToken = fileYouTrackConfig.get();
     assertThat(accessToken).isEmpty();
   }
 
   @Test
   void validFile() {
     final Path file = resolveTestFile("test.properties");
-    final FileAccessToken fileAccessToken = FileAccessToken.of(file);
-    final Optional<AccessToken> accessToken = fileAccessToken.get();
+    final FileYouTrackConfig fileYouTrackConfig = FileYouTrackConfig.of(file);
+    final Optional<AccessToken> accessToken = fileYouTrackConfig.get();
     assertThat(accessToken).contains(AccessToken.of("test-access-token"));
   }
 }

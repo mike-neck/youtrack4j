@@ -17,12 +17,12 @@ package org.mikeneck.youtrack;
 
 import org.jetbrains.annotations.NotNull;
 import org.mikeneck.youtrack.token.AccessToken;
-import org.mikeneck.youtrack.token.FileAccessToken;
-import org.mikeneck.youtrack.token.ResourceAccessToken;
-import org.mikeneck.youtrack.token.SystemPropertyAccessToken;
+import org.mikeneck.youtrack.token.FileYouTrackConfig;
+import org.mikeneck.youtrack.token.ResourceYouTrackConfig;
+import org.mikeneck.youtrack.token.SystemPropertyYouTrackConfig;
 import org.mikeneck.youtrack.util.First;
 
-public class YouTrackAccessToken {
+public class YouTrackConfiguration {
 
   public static String YOUTRACK_ACCESS_TOKEN_PROPERTY = "youtrack.access.token";
 
@@ -30,17 +30,20 @@ public class YouTrackAccessToken {
 
   private final AccessToken accessToken;
 
-  private YouTrackAccessToken(final AccessToken accessToken) {
+  private YouTrackConfiguration(final AccessToken accessToken) {
     this.accessToken = accessToken;
   }
 
-  public static YouTrackAccessToken load() {
-    final AccessToken accessToken =
-        First.tryGet(() -> SystemPropertyAccessToken.instance().get())
-            .tryNext(() -> FileAccessToken.instance().get())
-            .tryNext(() -> ResourceAccessToken.instance().get())
+  public static YouTrackConfiguration load() {
+      final SystemPropertyYouTrackConfig systemPropertyYouTrackConfig = SystemPropertyYouTrackConfig.instance();
+      final FileYouTrackConfig fileYouTrackConfig = FileYouTrackConfig.instance();
+      final ResourceYouTrackConfig resourceYouTrackConfig = ResourceYouTrackConfig.instance();
+      final AccessToken accessToken =
+        First.tryGet(systemPropertyYouTrackConfig)
+            .tryNext(fileYouTrackConfig)
+            .tryNext(resourceYouTrackConfig)
             .orElseThrow();
-    return new YouTrackAccessToken(accessToken);
+    return new YouTrackConfiguration(accessToken);
   }
 
   @NotNull

@@ -16,17 +16,17 @@
 package org.mikeneck.youtrack.token;
 
 import java.util.Optional;
-import org.mikeneck.youtrack.YouTrackAccessToken;
+import org.mikeneck.youtrack.YouTrackConfiguration;
 
-public class SystemPropertyAccessToken implements AccessTokenCandidate {
+public class SystemPropertyYouTrackConfig implements AccessTokenCandidate {
 
-  public static SystemPropertyAccessToken instance() {
-    return new SystemPropertyAccessToken();
+  public static SystemPropertyYouTrackConfig instance() {
+    return new SystemPropertyYouTrackConfig();
   }
 
   @Override
   public Optional<AccessToken> get() {
-    final String property = System.getProperty(YouTrackAccessToken.YOUTRACK_ACCESS_TOKEN_PROPERTY);
+    final String property = System.getProperty(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_PROPERTY);
     return AccessToken.optional(property);
   }
 }

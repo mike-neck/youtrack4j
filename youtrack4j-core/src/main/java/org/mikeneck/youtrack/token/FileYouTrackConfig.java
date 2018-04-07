@@ -23,25 +23,25 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.Properties;
 import org.jetbrains.annotations.NotNull;
-import org.mikeneck.youtrack.YouTrackAccessToken;
+import org.mikeneck.youtrack.YouTrackConfiguration;
 
-public class FileAccessToken implements AccessTokenCandidate {
+public class FileYouTrackConfig implements AccessTokenCandidate {
 
   @NotNull private final Path accessTokenFile;
 
-  private FileAccessToken(@NotNull final Path accessTokenFile) {
+  private FileYouTrackConfig(@NotNull final Path accessTokenFile) {
     this.accessTokenFile = accessTokenFile;
   }
 
   @NotNull
-  public static FileAccessToken instance() {
-    final Path accessTokenFile = Paths.get(YouTrackAccessToken.YOUTRACK_ACCESS_TOKEN_FILE);
-    return new FileAccessToken(accessTokenFile);
+  public static FileYouTrackConfig instance() {
+    final Path accessTokenFile = Paths.get(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_FILE);
+    return new FileYouTrackConfig(accessTokenFile);
   }
 
   @NotNull
-  static FileAccessToken of(@NotNull final Path accessTokenFile) {
-    return new FileAccessToken(accessTokenFile);
+  static FileYouTrackConfig of(@NotNull final Path accessTokenFile) {
+    return new FileYouTrackConfig(accessTokenFile);
   }
 
   @Override
@@ -50,7 +50,7 @@ public class FileAccessToken implements AccessTokenCandidate {
       final Properties properties = new Properties();
       properties.load(reader);
       final String accessTokenValue =
-          properties.getProperty(YouTrackAccessToken.YOUTRACK_ACCESS_TOKEN_PROPERTY);
+          properties.getProperty(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_PROPERTY);
       return AccessToken.optional(accessTokenValue);
     } catch (IOException ignored) {
     }

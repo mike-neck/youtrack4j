@@ -22,34 +22,34 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.Properties;
-import org.mikeneck.youtrack.YouTrackAccessToken;
+import org.mikeneck.youtrack.YouTrackConfiguration;
 
-public class ResourceAccessToken implements AccessTokenCandidate {
+public class ResourceYouTrackConfig implements AccessTokenCandidate {
 
   private final ClassLoader classLoader;
 
-  private ResourceAccessToken() {
-    this.classLoader = ResourceAccessToken.class.getClassLoader();
+  private ResourceYouTrackConfig() {
+    this.classLoader = ResourceYouTrackConfig.class.getClassLoader();
   }
 
-  public static ResourceAccessToken instance() {
-    return new ResourceAccessToken();
+  public static ResourceYouTrackConfig instance() {
+    return new ResourceYouTrackConfig();
   }
 
   @Override
   public Optional<AccessToken> get() {
-    final URL resource = classLoader.getResource(YouTrackAccessToken.YOUTRACK_ACCESS_TOKEN_FILE);
+    final URL resource = classLoader.getResource(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_FILE);
     if (resource == null) {
       return Optional.empty();
     }
     try (final Reader reader =
         new InputStreamReader(
-            classLoader.getResourceAsStream(YouTrackAccessToken.YOUTRACK_ACCESS_TOKEN_FILE),
+            classLoader.getResourceAsStream(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_FILE),
             StandardCharsets.UTF_8)) {
       final Properties properties = new Properties();
       properties.load(reader);
       final String property =
-          properties.getProperty(YouTrackAccessToken.YOUTRACK_ACCESS_TOKEN_PROPERTY);
+          properties.getProperty(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_PROPERTY);
       return AccessToken.optional(property);
     } catch (IOException ignored) {
     }

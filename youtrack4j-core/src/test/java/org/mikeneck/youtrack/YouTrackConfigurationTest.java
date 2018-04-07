@@ -20,11 +20,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.mikeneck.youtrack.token.AccessToken;
 
-class YouTrackAccessTokenTest {
+class YouTrackConfigurationTest {
 
   @Test
   void resourceAccessTokenWillBeUsed() {
-    final YouTrackAccessToken youTrackAccessToken = YouTrackAccessToken.load();
-    assertThat(youTrackAccessToken.getAccessToken()).isEqualTo(AccessToken.of("test-access-token"));
+    final YouTrackConfiguration youTrackConfiguration = YouTrackConfiguration.load();
+    assertThat(youTrackConfiguration.getAccessToken()).isEqualTo(AccessToken.of("test-access-token"));
   }
 }
