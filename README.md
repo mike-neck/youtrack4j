@@ -24,7 +24,7 @@ The order of file to be loaded is determined as follows.
 
 1. JVM parameters.
 1. `youtrack.properties` file on a working directory.
-1. `youtrack.properties` file on classpath resource.
 1. `youtrack-test.properties` file on classpath resource.
+1. `youtrack.properties` file on classpath resource.
 
 

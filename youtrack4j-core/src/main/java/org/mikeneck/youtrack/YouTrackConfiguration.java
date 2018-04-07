@@ -49,8 +49,8 @@ public final class YouTrackConfiguration {
     return new Builder()
         .nextCandidate(systemPropertyYouTrackConfigProvider)
         .nextCandidate(fileYouTrackConfigProvider)
-        .nextCandidate(resourceYouTrackConfigProvider)
         .nextCandidate(testResourceYouTrackConfigProvider)
+        .nextCandidate(resourceYouTrackConfigProvider)
         .build();
   }
 
