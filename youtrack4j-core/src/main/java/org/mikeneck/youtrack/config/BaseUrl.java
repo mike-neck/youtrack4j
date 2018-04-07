@@ -27,7 +27,7 @@ public class BaseUrl implements Serializable {
   private static final long serialVersionUID = -533297824357249L;
 
   private static final Pattern PATTERN =
-      Pattern.compile("https?://[a-zA-Z0-9\\-_]+[.[a-zA-Z0-9\\-_]+]*/youtrack");
+      Pattern.compile("https?://[a-zA-Z0-9\\-_]+(.[a-zA-Z0-9\\-_]+)*(:[0-9]+)?/youtrack");
 
   private final String baseUrl;
 

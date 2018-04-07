@@ -23,27 +23,35 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class BaseUrlTest {
 
-    @Test
-    void nullParameterForOptionalMethod() {
-        final Optional<BaseUrl> baseUrl = BaseUrl.optional(null);
-        assertThat(baseUrl).isEmpty();
-    }
+  @Test
+  void nullParameterForOptionalMethod() {
+    final Optional<BaseUrl> baseUrl = BaseUrl.optional(null);
+    assertThat(baseUrl).isEmpty();
+  }
 
-    @Test
-    void emptyParameterForOptionalMethod() {
-        final Optional<BaseUrl> baseUrl = BaseUrl.optional("");
-        assertThat(baseUrl).isEmpty();
-    }
+  @Test
+  void emptyParameterForOptionalMethod() {
+    final Optional<BaseUrl> baseUrl = BaseUrl.optional("");
+    assertThat(baseUrl).isEmpty();
+  }
 
-    @Test
-    void invalidStringForOptionalMethod() {
-        final Optional<BaseUrl> baseUrl = BaseUrl.optional("acbc");
-        assertThat(baseUrl).isEmpty();
-    }
+  @Test
+  void invalidStringForOptionalMethod() {
+    final Optional<BaseUrl> baseUrl = BaseUrl.optional("acbc");
+    assertThat(baseUrl).isEmpty();
+  }
 
-    @Test
-    void validUrlForOptionalMethod() {
-        final Optional<BaseUrl> baseUrl = BaseUrl.optional("https://foo-bar.youtrack.com/youtrack");
-        assertThat(baseUrl).isNotEmpty().contains(new BaseUrl("https://foo-bar.youtrack.com/youtrack"));
-    }
+  @Test
+  void validUrlForOptionalMethod() {
+    final Optional<BaseUrl> baseUrl = BaseUrl.optional("https://foo-bar.myjetbrains.com/youtrack");
+    assertThat(baseUrl)
+        .isNotEmpty()
+        .contains(new BaseUrl("https://foo-bar.myjetbrains.com/youtrack"));
+  }
+
+  @Test
+  void usingLocalhost8080() {
+    final Optional<BaseUrl> baseUrl = BaseUrl.optional("http://localhost:8080/youtrack");
+    assertThat(baseUrl).isNotEmpty().contains(new BaseUrl("http://localhost:8080/youtrack"));
+  }
 }
