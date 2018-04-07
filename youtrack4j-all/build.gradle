@@ -11,4 +11,6 @@ dependencies {
     runtimeOnly group: 'org.asynchttpclient', name: 'async-http-client', version: '2.4.4'
     runtimeOnly project(':youtrack4j-core')
     runtimeOnly group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.5'
+    runtimeOnly group: 'org.eclipse.collections', name: 'eclipse-collections', version: '9.1.0'
+    runtimeOnly group: 'io.projectreactor', name: 'reactor-core', version: '3.1.6.RELEASE'
 }
