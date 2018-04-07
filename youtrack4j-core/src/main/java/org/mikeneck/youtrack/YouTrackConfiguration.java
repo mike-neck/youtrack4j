@@ -28,9 +28,11 @@ public final class YouTrackConfiguration {
   public static String YOUTRACK_BASE_URL_PROPERTY = "youtrack.base.url";
 
   private final AccessToken accessToken;
+  private final BaseUrl baseUrl;
 
-  private YouTrackConfiguration(final AccessToken accessToken) {
+  private YouTrackConfiguration(final AccessToken accessToken, final BaseUrl baseUrl) {
     this.accessToken = accessToken;
+    this.baseUrl = baseUrl;
   }
 
   public static YouTrackConfiguration load() {
@@ -40,12 +42,11 @@ public final class YouTrackConfiguration {
         FileYouTrackConfigProvider.instance();
     final ResourceYouTrackConfigProvider resourceYouTrackConfigProvider =
         ResourceYouTrackConfigProvider.instance();
-    final AccessToken accessToken =
-        First.tryGet(systemPropertyYouTrackConfigProvider::accessToken)
-            .tryNext(fileYouTrackConfigProvider::accessToken)
-            .tryNext(resourceYouTrackConfigProvider::accessToken)
-            .orElseThrow();
-    return new YouTrackConfiguration(accessToken);
+    return new Builder()
+        .nextCandidate(systemPropertyYouTrackConfigProvider)
+        .nextCandidate(fileYouTrackConfigProvider)
+        .nextCandidate(resourceYouTrackConfigProvider)
+        .build();
   }
 
   @NotNull
@@ -53,5 +54,32 @@ public final class YouTrackConfiguration {
     return accessToken;
   }
 
-  private static final class Builder {}
+  BaseUrl getBaseUrl() {
+    return baseUrl;
+  }
+
+  private static final class Builder {
+
+    private final First<AccessToken> accessToken;
+    private final First<BaseUrl> baseUrl;
+
+    private Builder() {
+      this.accessToken = First.notYet();
+      this.baseUrl = First.notYet();
+    }
+
+    private Builder(final First<AccessToken> accessToken, final First<BaseUrl> baseUrl) {
+      this.accessToken = accessToken;
+      this.baseUrl = baseUrl;
+    }
+
+    Builder nextCandidate(final YouTrackConfigProvider provider) {
+      return new Builder(
+          accessToken.tryNext(provider::accessToken), baseUrl.tryNext(provider::baseUrl));
+    }
+
+    YouTrackConfiguration build() {
+      return new YouTrackConfiguration(accessToken.orElseThrow(), baseUrl.orElseThrow());
+    }
+  }
 }

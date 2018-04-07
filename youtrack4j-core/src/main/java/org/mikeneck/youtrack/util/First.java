@@ -19,8 +19,13 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Supplier;
 import org.jetbrains.annotations.NotNull;
+import org.mikeneck.youtrack.config.AccessToken;
 
 public interface First<T> {
+
+  static <T> First<T> notYet() {
+    return new FirstNotYet<>();
+  }
 
   @NotNull
   First<T> tryNext(final Supplier<? extends Optional<T>> next);

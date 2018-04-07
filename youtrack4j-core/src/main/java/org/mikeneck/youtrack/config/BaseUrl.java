@@ -44,6 +44,13 @@ public class BaseUrl implements Serializable {
     return Optional.of(new BaseUrl(baseUrl));
   }
 
+  public static BaseUrl of(@NotNull final String baseUrl) {
+    if (!PATTERN.matcher(baseUrl).matches()) {
+      throw new IllegalArgumentException("invalid: " + baseUrl);
+    }
+    return new BaseUrl(baseUrl);
+  }
+
   @Override
   public String toString() {
     return "BaseUrl{" + "baseUrl='" + baseUrl + '\'' + '}';
