@@ -15,12 +15,12 @@
  */
 package org.mikeneck.youtrack;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mikeneck.youtrack.config.AccessToken;
 import org.mikeneck.youtrack.config.BaseUrl;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class YouTrackConfigurationTest {
 
@@ -37,9 +37,9 @@ class YouTrackConfigurationTest {
   }
 
   @Test
-    void systemBaseUrlWillBeUsed() {
-      final YouTrackConfiguration youTrackConfiguration = YouTrackConfiguration.load();
-      assertThat(youTrackConfiguration.getBaseUrl())
-              .isEqualTo(BaseUrl.of("https://localhost:8080/youtrack"));
+  void systemBaseUrlWillBeUsed() {
+    final YouTrackConfiguration youTrackConfiguration = YouTrackConfiguration.load();
+    assertThat(youTrackConfiguration.getBaseUrl())
+        .isEqualTo(BaseUrl.of("https://localhost:8080/youtrack"));
   }
 }

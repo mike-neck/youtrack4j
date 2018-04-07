@@ -33,7 +33,7 @@ public class SystemPropertyYouTrackConfigProvider implements YouTrackConfigProvi
 
   @Override
   public Optional<BaseUrl> baseUrl() {
-      final String baseUrl = System.getProperty(YouTrackConfiguration.YOUTRACK_BASE_URL_PROPERTY);
-      return BaseUrl.optional(baseUrl);
+    final String baseUrl = System.getProperty(YouTrackConfiguration.YOUTRACK_BASE_URL_PROPERTY);
+    return BaseUrl.optional(baseUrl);
   }
 }

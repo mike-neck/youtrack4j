@@ -19,7 +19,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Supplier;
 import org.jetbrains.annotations.NotNull;
-import org.mikeneck.youtrack.config.AccessToken;
 
 public interface First<T> {
 

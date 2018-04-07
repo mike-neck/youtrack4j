@@ -1,0 +1,93 @@
+[
+  {
+    "versions": null,
+    "name": "DEMO project",
+    "shortName": "DEMO",
+    "description": "demo project",
+    "isImporting": false,
+    "subsystems": [],
+    "assigneesLogin": [
+      {
+        "value": "guest"
+      },
+      {
+        "value": "jon doe"
+      }
+    ],
+    "assigneesFullName": [
+      {
+        "value": "guest"
+      },
+      {
+        "value": "jon doe"
+      }
+    ]
+  },
+  {
+    "versions": null,
+    "name": "idea management",
+    "shortName": "IM",
+    "description": "idea management",
+    "isImporting": false,
+    "subsystems": [],
+    "assigneesLogin": [
+      {
+        "value": "jon doe"
+      }
+    ],
+    "assigneesFullName": [
+      {
+        "value": "jon doe"
+      }
+    ]
+  },
+  {
+    "versions": null,
+    "name": "jvm til",
+    "shortName": "JVMTIL",
+    "description": "JVM TIL management",
+    "isImporting": false,
+    "subsystems": [
+      {
+        "value": "java:aws"
+      },
+      {
+        "value": "java:miscellaneous"
+      },
+      {
+        "value": "java:spring"
+      },
+      {
+        "value": "kotlin:js"
+      }
+    ],
+    "assigneesLogin": [
+      {
+        "value": "jon doe"
+      }
+    ],
+    "assigneesFullName": [
+      {
+        "value": "jon doe"
+      }
+    ]
+  },
+  {
+    "versions": null,
+    "name": "ken check",
+    "shortName": "KC",
+    "description": "KC Project",
+    "isImporting": false,
+    "subsystems": [],
+    "assigneesLogin": [
+      {
+        "value": "jon doe"
+      }
+    ],
+    "assigneesFullName": [
+      {
+        "value": "jon doe"
+      }
+    ]
+  }
+]
