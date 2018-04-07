@@ -26,12 +26,13 @@ public class SystemPropertyYouTrackConfigProvider implements YouTrackConfigProvi
 
   @Override
   public Optional<AccessToken> accessToken() {
-    final String property = System.getProperty(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_PROPERTY);
+    final String property =
+        System.getProperty(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_PROPERTY);
     return AccessToken.optional(property);
   }
 
-    @Override
-    public Optional<BaseUrl> baseUrl() {
-        return Optional.empty();
-    }
+  @Override
+  public Optional<BaseUrl> baseUrl() {
+    return Optional.empty();
+  }
 }

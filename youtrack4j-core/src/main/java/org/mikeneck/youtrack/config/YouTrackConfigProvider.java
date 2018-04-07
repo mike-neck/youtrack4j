@@ -15,5 +15,4 @@
  */
 package org.mikeneck.youtrack.config;
 
-public interface YouTrackConfigProvider extends AccessTokenCandidate, BaseUrlCandidate {
-}
+public interface YouTrackConfigProvider extends AccessTokenCandidate, BaseUrlCandidate {}

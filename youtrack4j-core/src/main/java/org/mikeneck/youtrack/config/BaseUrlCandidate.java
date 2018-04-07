@@ -19,5 +19,5 @@ import java.util.Optional;
 
 public interface BaseUrlCandidate {
 
-    Optional<BaseUrl> baseUrl();
+  Optional<BaseUrl> baseUrl();
 }

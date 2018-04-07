@@ -52,7 +52,8 @@ class FileYouTrackConfigProviderTest {
   @Test
   void invalidFile() {
     final Path file = resolveTestFile("test.txt");
-    final FileYouTrackConfigProvider fileYouTrackConfigProvider = FileYouTrackConfigProvider.of(file);
+    final FileYouTrackConfigProvider fileYouTrackConfigProvider =
+        FileYouTrackConfigProvider.of(file);
     final Optional<AccessToken> accessToken = fileYouTrackConfigProvider.accessToken();
     assertThat(accessToken).isEmpty();
   }
@@ -60,7 +61,8 @@ class FileYouTrackConfigProviderTest {
   @Test
   void validFile() {
     final Path file = resolveTestFile("test.properties");
-    final FileYouTrackConfigProvider fileYouTrackConfigProvider = FileYouTrackConfigProvider.of(file);
+    final FileYouTrackConfigProvider fileYouTrackConfigProvider =
+        FileYouTrackConfigProvider.of(file);
     final Optional<AccessToken> accessToken = fileYouTrackConfigProvider.accessToken();
     assertThat(accessToken).contains(AccessToken.of("test-access-token"));
   }

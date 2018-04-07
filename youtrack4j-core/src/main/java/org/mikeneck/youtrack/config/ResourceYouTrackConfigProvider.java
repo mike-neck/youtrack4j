@@ -15,15 +15,14 @@
  */
 package org.mikeneck.youtrack.config;
 
-import org.jetbrains.annotations.NotNull;
-import org.mikeneck.youtrack.YouTrackConfiguration;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
+import org.jetbrains.annotations.NotNull;
+import org.mikeneck.youtrack.YouTrackConfiguration;
 
 public class ResourceYouTrackConfigProvider extends PropertyBasedYouTrackConfig {
 

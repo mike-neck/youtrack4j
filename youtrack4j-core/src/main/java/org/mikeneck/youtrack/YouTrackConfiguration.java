@@ -36,8 +36,10 @@ public final class YouTrackConfiguration {
   public static YouTrackConfiguration load() {
     final SystemPropertyYouTrackConfigProvider systemPropertyYouTrackConfigProvider =
         SystemPropertyYouTrackConfigProvider.instance();
-    final PropertyBasedYouTrackConfig fileYouTrackConfigProvider = FileYouTrackConfigProvider.instance();
-    final ResourceYouTrackConfigProvider resourceYouTrackConfigProvider = ResourceYouTrackConfigProvider.instance();
+    final PropertyBasedYouTrackConfig fileYouTrackConfigProvider =
+        FileYouTrackConfigProvider.instance();
+    final ResourceYouTrackConfigProvider resourceYouTrackConfigProvider =
+        ResourceYouTrackConfigProvider.instance();
     final AccessToken accessToken =
         First.tryGet(systemPropertyYouTrackConfigProvider::accessToken)
             .tryNext(fileYouTrackConfigProvider::accessToken)
@@ -51,7 +53,5 @@ public final class YouTrackConfiguration {
     return accessToken;
   }
 
-  private static final class Builder {
-      
-  }
+  private static final class Builder {}
 }

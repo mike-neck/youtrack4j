@@ -25,6 +25,7 @@ class YouTrackConfigurationTest {
   @Test
   void resourceAccessTokenWillBeUsed() {
     final YouTrackConfiguration youTrackConfiguration = YouTrackConfiguration.load();
-    assertThat(youTrackConfiguration.getAccessToken()).isEqualTo(AccessToken.of("test-access-token"));
+    assertThat(youTrackConfiguration.getAccessToken())
+        .isEqualTo(AccessToken.of("test-access-token"));
   }
 }

@@ -19,5 +19,5 @@ import java.util.Optional;
 
 public interface AccessTokenCandidate {
 
-    Optional<AccessToken> accessToken();
+  Optional<AccessToken> accessToken();
 }

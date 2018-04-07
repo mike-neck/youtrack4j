@@ -26,9 +26,9 @@ import org.mikeneck.youtrack.YouTrackConfiguration;
 
 public class FileYouTrackConfigProvider extends PropertyBasedYouTrackConfig {
 
-    private FileYouTrackConfigProvider(@NotNull final Properties properties) {
-        super(properties);
-    }
+  private FileYouTrackConfigProvider(@NotNull final Properties properties) {
+    super(properties);
+  }
 
   private static FileYouTrackConfigProvider loadFromFile(final Path file) {
     try (final Reader reader = Files.newBufferedReader(file)) {
@@ -50,5 +50,4 @@ public class FileYouTrackConfigProvider extends PropertyBasedYouTrackConfig {
   static FileYouTrackConfigProvider of(@NotNull final Path file) {
     return loadFromFile(file);
   }
-
 }

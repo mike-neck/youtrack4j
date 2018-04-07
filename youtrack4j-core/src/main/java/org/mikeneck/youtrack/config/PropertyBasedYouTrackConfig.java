@@ -15,31 +15,29 @@
  */
 package org.mikeneck.youtrack.config;
 
+import java.util.Optional;
+import java.util.Properties;
 import org.jetbrains.annotations.NotNull;
 import org.mikeneck.youtrack.YouTrackConfiguration;
 
-import java.util.Optional;
-import java.util.Properties;
-
 public class PropertyBasedYouTrackConfig implements YouTrackConfigProvider {
-    @NotNull
-    protected final Properties properties;
+  @NotNull protected final Properties properties;
 
-    public PropertyBasedYouTrackConfig(@NotNull final Properties properties) {
-        this.properties = properties;
-    }
+  public PropertyBasedYouTrackConfig(@NotNull final Properties properties) {
+    this.properties = properties;
+  }
 
-    @Override
-    public Optional<AccessToken> accessToken() {
-      return Optional.ofNullable(
-              properties.getProperty(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_PROPERTY))
-          .map(AccessToken::of);
-    }
+  @Override
+  public Optional<AccessToken> accessToken() {
+    return Optional.ofNullable(
+            properties.getProperty(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_PROPERTY))
+        .map(AccessToken::of);
+  }
 
-    @Override
-    public Optional<BaseUrl> baseUrl() {
-      return Optional.ofNullable(
-              properties.getProperty(YouTrackConfiguration.YOUTRACK_BASE_URL_PROPERTY))
-          .flatMap(BaseUrl::optional);
-    }
+  @Override
+  public Optional<BaseUrl> baseUrl() {
+    return Optional.ofNullable(
+            properties.getProperty(YouTrackConfiguration.YOUTRACK_BASE_URL_PROPERTY))
+        .flatMap(BaseUrl::optional);
+  }
 }

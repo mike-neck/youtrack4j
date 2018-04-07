@@ -15,14 +15,13 @@
  */
 package org.mikeneck.youtrack.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class FirstTest {
 
@@ -48,38 +47,38 @@ class FirstTest {
     }
 
     @Test
-      void nextTryHasNoItem() {
-        final First<String> second = first.tryNext(Optional::empty);
-        //noinspection ResultOfMethodCallIgnored
-        assertThatThrownBy(second::orElseThrow);
+    void nextTryHasNoItem() {
+      final First<String> second = first.tryNext(Optional::empty);
+      //noinspection ResultOfMethodCallIgnored
+      assertThatThrownBy(second::orElseThrow);
     }
   }
 
   @Nested
   class FirstTryHasItem {
 
-      First<String> first;
+    First<String> first;
 
-      @BeforeEach
-      void setup() {
-          first = First.tryGet(() -> Optional.of("foo"));
-      }
+    @BeforeEach
+    void setup() {
+      first = First.tryGet(() -> Optional.of("foo"));
+    }
 
-      @Test
-      void test() {
-          assertThat(first).isInstanceOf(FirstHasItem.class);
-      }
+    @Test
+    void test() {
+      assertThat(first).isInstanceOf(FirstHasItem.class);
+    }
 
-      @Test
-      void nextTryHasItem() {
-          final First<String> second = first.tryNext(() -> Optional.of("bar"));
-          assertThat(second.orElseThrow()).isEqualTo("foo");
-      }
+    @Test
+    void nextTryHasItem() {
+      final First<String> second = first.tryNext(() -> Optional.of("bar"));
+      assertThat(second.orElseThrow()).isEqualTo("foo");
+    }
 
-      @Test
-      void nextTryHasNoItem() {
-          final First<String> second = first.tryNext(Optional::empty);
-          assertThat(second.orElseThrow()).isEqualTo("foo");
-      }
+    @Test
+    void nextTryHasNoItem() {
+      final First<String> second = first.tryNext(Optional::empty);
+      assertThat(second.orElseThrow()).isEqualTo("foo");
+    }
   }
 }
