@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License,Version2.0(the"License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy optional the License at
+ * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -13,18 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack;
+package org.mikeneck.youtrack.config;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Optional;
 
-import org.junit.jupiter.api.Test;
-import org.mikeneck.youtrack.config.AccessToken;
+public interface BaseUrlCandidate {
 
-class YouTrackConfigurationTest {
-
-  @Test
-  void resourceAccessTokenWillBeUsed() {
-    final YouTrackConfiguration youTrackConfiguration = YouTrackConfiguration.load();
-    assertThat(youTrackConfiguration.getAccessToken()).isEqualTo(AccessToken.of("test-access-token"));
-  }
+    Optional<BaseUrl> baseUrl();
 }

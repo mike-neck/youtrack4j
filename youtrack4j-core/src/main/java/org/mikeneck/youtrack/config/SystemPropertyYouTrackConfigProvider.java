@@ -13,20 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.token;
+package org.mikeneck.youtrack.config;
 
 import java.util.Optional;
 import org.mikeneck.youtrack.YouTrackConfiguration;
 
-public class SystemPropertyYouTrackConfig implements AccessTokenCandidate {
+public class SystemPropertyYouTrackConfigProvider implements YouTrackConfigProvider {
 
-  public static SystemPropertyYouTrackConfig instance() {
-    return new SystemPropertyYouTrackConfig();
+  public static SystemPropertyYouTrackConfigProvider instance() {
+    return new SystemPropertyYouTrackConfigProvider();
   }
 
   @Override
-  public Optional<AccessToken> get() {
+  public Optional<AccessToken> accessToken() {
     final String property = System.getProperty(YouTrackConfiguration.YOUTRACK_ACCESS_TOKEN_PROPERTY);
     return AccessToken.optional(property);
   }
+
+    @Override
+    public Optional<BaseUrl> baseUrl() {
+        return Optional.empty();
+    }
 }

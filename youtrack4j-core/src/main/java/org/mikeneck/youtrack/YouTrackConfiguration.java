@@ -16,17 +16,16 @@
 package org.mikeneck.youtrack;
 
 import org.jetbrains.annotations.NotNull;
-import org.mikeneck.youtrack.token.AccessToken;
-import org.mikeneck.youtrack.token.FileYouTrackConfig;
-import org.mikeneck.youtrack.token.ResourceYouTrackConfig;
-import org.mikeneck.youtrack.token.SystemPropertyYouTrackConfig;
+import org.mikeneck.youtrack.config.*;
 import org.mikeneck.youtrack.util.First;
 
-public class YouTrackConfiguration {
+public final class YouTrackConfiguration {
+
+  public static String YOUTRACK_PROPERTIES_FILE = "youtrack.properties";
 
   public static String YOUTRACK_ACCESS_TOKEN_PROPERTY = "youtrack.access.token";
 
-  public static String YOUTRACK_ACCESS_TOKEN_FILE = "youtrack.properties";
+  public static String YOUTRACK_BASE_URL_PROPERTY = "youtrack.base.url";
 
   private final AccessToken accessToken;
 
@@ -35,13 +34,14 @@ public class YouTrackConfiguration {
   }
 
   public static YouTrackConfiguration load() {
-      final SystemPropertyYouTrackConfig systemPropertyYouTrackConfig = SystemPropertyYouTrackConfig.instance();
-      final FileYouTrackConfig fileYouTrackConfig = FileYouTrackConfig.instance();
-      final ResourceYouTrackConfig resourceYouTrackConfig = ResourceYouTrackConfig.instance();
-      final AccessToken accessToken =
-        First.tryGet(systemPropertyYouTrackConfig)
-            .tryNext(fileYouTrackConfig)
-            .tryNext(resourceYouTrackConfig)
+    final SystemPropertyYouTrackConfigProvider systemPropertyYouTrackConfigProvider =
+        SystemPropertyYouTrackConfigProvider.instance();
+    final PropertyBasedYouTrackConfig fileYouTrackConfigProvider = FileYouTrackConfigProvider.instance();
+    final ResourceYouTrackConfigProvider resourceYouTrackConfigProvider = ResourceYouTrackConfigProvider.instance();
+    final AccessToken accessToken =
+        First.tryGet(systemPropertyYouTrackConfigProvider::accessToken)
+            .tryNext(fileYouTrackConfigProvider::accessToken)
+            .tryNext(resourceYouTrackConfigProvider::accessToken)
             .orElseThrow();
     return new YouTrackConfiguration(accessToken);
   }
@@ -49,5 +49,9 @@ public class YouTrackConfiguration {
   @NotNull
   AccessToken getAccessToken() {
     return accessToken;
+  }
+
+  private static final class Builder {
+      
   }
 }

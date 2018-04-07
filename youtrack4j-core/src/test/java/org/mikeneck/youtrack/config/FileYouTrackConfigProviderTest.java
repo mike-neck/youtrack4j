@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.token;
+package org.mikeneck.youtrack.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,7 +24,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.TestAbortedException;
 
-class FileYouTrackConfigTest {
+class FileYouTrackConfigProviderTest {
 
   private static Path resolveTestFile(final String testFileName) {
     final Path file = Paths.get("test", testFileName);
@@ -43,25 +43,25 @@ class FileYouTrackConfigTest {
 
   @Test
   void nonExistingFile() {
-    final FileYouTrackConfig fileYouTrackConfig =
-        FileYouTrackConfig.of(Paths.get("not-existing.properties"));
-    final Optional<AccessToken> accessToken = fileYouTrackConfig.get();
+    final FileYouTrackConfigProvider fileYouTrackConfigProvider =
+        FileYouTrackConfigProvider.of(Paths.get("not-existing.properties"));
+    final Optional<AccessToken> accessToken = fileYouTrackConfigProvider.accessToken();
     assertThat(accessToken).isEmpty();
   }
 
   @Test
   void invalidFile() {
     final Path file = resolveTestFile("test.txt");
-    final FileYouTrackConfig fileYouTrackConfig = FileYouTrackConfig.of(file);
-    final Optional<AccessToken> accessToken = fileYouTrackConfig.get();
+    final FileYouTrackConfigProvider fileYouTrackConfigProvider = FileYouTrackConfigProvider.of(file);
+    final Optional<AccessToken> accessToken = fileYouTrackConfigProvider.accessToken();
     assertThat(accessToken).isEmpty();
   }
 
   @Test
   void validFile() {
     final Path file = resolveTestFile("test.properties");
-    final FileYouTrackConfig fileYouTrackConfig = FileYouTrackConfig.of(file);
-    final Optional<AccessToken> accessToken = fileYouTrackConfig.get();
+    final FileYouTrackConfigProvider fileYouTrackConfigProvider = FileYouTrackConfigProvider.of(file);
+    final Optional<AccessToken> accessToken = fileYouTrackConfigProvider.accessToken();
     assertThat(accessToken).contains(AccessToken.of("test-access-token"));
   }
 }
