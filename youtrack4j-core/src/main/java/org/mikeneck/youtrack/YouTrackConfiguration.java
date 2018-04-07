@@ -23,6 +23,8 @@ public final class YouTrackConfiguration {
 
   public static String YOUTRACK_PROPERTIES_FILE = "youtrack.properties";
 
+  public static String YOUTRACK_TEST_PROPERTIES_FILE = "youtrack-test.properties";
+
   public static String YOUTRACK_ACCESS_TOKEN_PROPERTY = "youtrack.access.token";
 
   public static String YOUTRACK_BASE_URL_PROPERTY = "youtrack.base.url";
@@ -42,10 +44,13 @@ public final class YouTrackConfiguration {
         FileYouTrackConfigProvider.instance();
     final ResourceYouTrackConfigProvider resourceYouTrackConfigProvider =
         ResourceYouTrackConfigProvider.instance();
+    final ResourceYouTrackConfigProvider testResourceYouTrackConfigProvider =
+        ResourceYouTrackConfigProvider.of(YOUTRACK_TEST_PROPERTIES_FILE);
     return new Builder()
         .nextCandidate(systemPropertyYouTrackConfigProvider)
         .nextCandidate(fileYouTrackConfigProvider)
         .nextCandidate(resourceYouTrackConfigProvider)
+        .nextCandidate(testResourceYouTrackConfigProvider)
         .build();
   }
 
