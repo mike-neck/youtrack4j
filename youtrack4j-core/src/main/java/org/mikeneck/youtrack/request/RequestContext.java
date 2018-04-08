@@ -43,8 +43,8 @@ public class RequestContext implements AutoCloseable {
     return baseUrl.get(path);
   }
 
-    @Override
-    public void close() throws Exception {
-        client.close();
-    }
+  @Override
+  public void close() throws Exception {
+    client.close();
+  }
 }

@@ -16,7 +16,6 @@
 package org.mikeneck.youtrack.request;
 
 import java.io.Serializable;
-import java.net.URI;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import org.jetbrains.annotations.NotNull;

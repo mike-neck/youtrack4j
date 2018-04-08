@@ -17,42 +17,42 @@ package org.mikeneck.youtrack.request.http;
 
 public class Header {
 
-    private final String name;
-    private final String value;
+  private final String name;
+  private final String value;
 
-    public Header(final String name, final String value) {
-        this.name = name;
-        this.value = value;
-    }
+  public Header(final String name, final String value) {
+    this.name = name;
+    this.value = value;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getValue() {
-        return value;
-    }
+  public String getValue() {
+    return value;
+  }
 
-    @Override
-    public String toString() {
-        return "Header: " + name + ": "+ value;
-    }
+  @Override
+  public String toString() {
+    return "Header: " + name + ": " + value;
+  }
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Header)) return false;
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Header)) return false;
 
-        final Header header = (Header) o;
+    final Header header = (Header) o;
 
-        if (!name.equals(header.name)) return false;
-        return value != null ? value.equals(header.value) : header.value == null;
-    }
+    if (!name.equals(header.name)) return false;
+    return value != null ? value.equals(header.value) : header.value == null;
+  }
 
-    @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + (value != null ? value.hashCode() : 0);
-        return result;
-    }
+  @Override
+  public int hashCode() {
+    int result = name.hashCode();
+    result = 31 * result + (value != null ? value.hashCode() : 0);
+    return result;
+  }
 }

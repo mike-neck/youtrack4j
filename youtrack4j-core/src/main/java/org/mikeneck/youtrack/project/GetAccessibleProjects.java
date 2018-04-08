@@ -32,7 +32,7 @@ public interface GetAccessibleProjects extends ApiRequest<List<YouTrackProject>>
   ApiRequest<List<YouTrackProject>> verbose();
 
   static GetAccessibleProjects noVerbose(final RequestContext context) {
-      final GetUrl getUrl = context.get("/project/all");
+    final GetUrl getUrl = context.get("/project/all");
     return new NoVerbose(context.client(), context.accessToken(), getUrl);
   }
 

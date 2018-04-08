@@ -15,11 +15,8 @@
  */
 package org.mikeneck.youtrack.request.http;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
-import java.util.function.Function;
-
 import io.netty.handler.codec.http.HttpHeaders;
+import java.nio.charset.StandardCharsets;
 import org.asynchttpclient.Response;
 import org.eclipse.collections.impl.factory.Lists;
 

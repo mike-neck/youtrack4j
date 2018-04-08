@@ -55,7 +55,8 @@ public class MonoBasedResponse<R> implements ApiResponse<R> {
                                         sink.error((ApiException) res);
                                       } else {
                                         sink.error(
-                                            new ApiException(res.getStatusCode(), res.getBody(), res.headers()));
+                                            new ApiException(
+                                                res.getStatusCode(), res.getBody(), res.headers()));
                                       }
                                     })));
     return new MonoBasedResponse<>(next);

@@ -26,11 +26,12 @@ public class ApiException extends RuntimeException implements FailureResponse {
   private final String responseBody;
   private final Iterable<Header> headers;
 
-  public ApiException(final int statusCode, final String responseBody, final Iterable<Header> headers) {
+  public ApiException(
+      final int statusCode, final String responseBody, final Iterable<Header> headers) {
     super(String.format("%d: %s", statusCode, responseBody));
     this.statusCode = statusCode;
     this.responseBody = responseBody;
-      this.headers = headers;
+    this.headers = headers;
   }
 
   @Override
@@ -43,8 +44,8 @@ public class ApiException extends RuntimeException implements FailureResponse {
     return responseBody;
   }
 
-    @Override
-    public Iterable<Header> headers() {
-        return headers;
-    }
+  @Override
+  public Iterable<Header> headers() {
+    return headers;
+  }
 }
