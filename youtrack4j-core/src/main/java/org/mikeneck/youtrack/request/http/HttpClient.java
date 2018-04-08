@@ -20,16 +20,16 @@ import org.mikeneck.youtrack.request.Handler;
 
 public interface HttpClient {
 
-    Get forGet(final GetUrl getUrl);
+  Get forGet(final GetUrl getUrl);
 
-    interface Get {
+  interface Get {
 
-        Get withHeader(final String headerName, final String headerValue);
+    Get withHeader(final String headerName, final String headerValue);
 
-        Get withQueryParameters(final QueryParameters queryParameters);
+    Get withQueryParameters(final QueryParameters queryParameters);
 
-        Get withQueryParameter(final String queryName, final String queryValue);
+    Get withQueryParameter(final String queryName, final String queryValue);
 
-        <R> ApiResponse<R> executeRequest(final Handler.BodyHandler<R> extractor);
-    }
+    <R> ApiResponse<R> executeRequest(final Handler.BodyHandler<R> extractor);
+  }
 }

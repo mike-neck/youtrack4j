@@ -17,5 +17,5 @@ package org.mikeneck.youtrack.request;
 
 public interface ApiRequest<R> {
 
-    ApiResponse<R> executeRequest();
+  ApiResponse<R> executeRequest();
 }

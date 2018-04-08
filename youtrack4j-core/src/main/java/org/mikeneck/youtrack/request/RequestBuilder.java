@@ -17,5 +17,5 @@ package org.mikeneck.youtrack.request;
 
 public interface RequestBuilder<R, A extends RequestBuilder<R, A>> {
 
-    A accessToken(final AccessToken accessToken);
+  A accessToken(final AccessToken accessToken);
 }

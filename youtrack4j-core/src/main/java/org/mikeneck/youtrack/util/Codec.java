@@ -19,7 +19,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
@@ -48,18 +47,17 @@ public class Codec {
     }
   }
 
-  public <E, J extends JsonForm<E>, C extends Collection<J>> List<E> deserialize(final TypeRef<C> typeRef, final String json) {
-      try {
-          final C collection = objectMapper.readValue(json, typeRef);
-          final List<E> list = collection.stream()
-                  .map(JsonForm::immutable)
-                  .collect(Collectors.toList());
-          return list;
-      } catch (IOException e) {
-          throw new CodecException(json, "deserialization for collection", e);
-      }
+  public <E, J extends JsonForm<E>, C extends Collection<J>> List<E> deserialize(
+      final TypeRef<C> typeRef, final String json) {
+    try {
+      final C collection = objectMapper.readValue(json, typeRef);
+      final List<E> list =
+          collection.stream().map(JsonForm::immutable).collect(Collectors.toList());
+      return list;
+    } catch (IOException e) {
+      throw new CodecException(json, "deserialization for collection", e);
+    }
   }
 
-  public static abstract class TypeRef<T> extends TypeReference<T> {
-  }
+  public abstract static class TypeRef<T> extends TypeReference<T> {}
 }

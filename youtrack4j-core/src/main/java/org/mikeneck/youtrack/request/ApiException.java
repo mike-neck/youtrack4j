@@ -19,24 +19,24 @@ import org.mikeneck.youtrack.request.http.FailureResponse;
 
 public class ApiException extends RuntimeException implements FailureResponse {
 
-    private static final long serialVersionUID = -370990231766752L;
+  private static final long serialVersionUID = -370990231766752L;
 
-    private final int statusCode;
-    private final String responseBody;
+  private final int statusCode;
+  private final String responseBody;
 
-    public ApiException(final int statusCode, final String responseBody) {
-        super(String.format("%d: %s", statusCode, responseBody));
-        this.statusCode = statusCode;
-        this.responseBody = responseBody;
-    }
+  public ApiException(final int statusCode, final String responseBody) {
+    super(String.format("%d: %s", statusCode, responseBody));
+    this.statusCode = statusCode;
+    this.responseBody = responseBody;
+  }
 
-    @Override
-    public int getStatusCode() {
-        return statusCode;
-    }
+  @Override
+  public int getStatusCode() {
+    return statusCode;
+  }
 
-    @Override
-    public String getBody() {
-        return responseBody;
-    }
+  @Override
+  public String getBody() {
+    return responseBody;
+  }
 }

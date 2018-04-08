@@ -15,11 +15,11 @@
  */
 package org.mikeneck.youtrack;
 
+import static org.asynchttpclient.Dsl.asyncHttpClient;
+
 import org.asynchttpclient.AsyncHttpClient;
 import org.jetbrains.annotations.NotNull;
 import org.mikeneck.youtrack.project.GetAccessibleProjects;
-
-import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 public final class YouTrack {
 

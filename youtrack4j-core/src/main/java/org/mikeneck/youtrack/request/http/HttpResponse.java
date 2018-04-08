@@ -17,9 +17,9 @@ package org.mikeneck.youtrack.request.http;
 
 public interface HttpResponse {
 
-    int getStatusCode();
+  int getStatusCode();
 
-    String getBody();
+  String getBody();
 
-    Iterable<String> header(final String headerName);
+  Iterable<String> header(final String headerName);
 }

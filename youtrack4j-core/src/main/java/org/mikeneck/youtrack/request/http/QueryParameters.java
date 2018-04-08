@@ -51,7 +51,7 @@ public final class QueryParameters {
 
   @FunctionalInterface
   interface QueryConfigurer<C> {
-      C configure(final C configuration, final String key, final String value);
+    C configure(final C configuration, final String key, final String value);
   }
 
   public interface QueryValue {

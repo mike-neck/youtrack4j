@@ -15,23 +15,21 @@
  */
 package org.mikeneck.youtrack.request;
 
+import java.util.Optional;
 import org.mikeneck.youtrack.request.http.GetUrl;
 import org.mikeneck.youtrack.request.http.HttpClient;
 import org.mikeneck.youtrack.request.http.HttpResponse;
 import org.mikeneck.youtrack.request.http.QueryParameters;
 
-import java.util.Optional;
-
 public abstract class GetRequest<R> implements ApiRequest<R> {
 
-    private final HttpClient client;
+  private final HttpClient client;
 
   private final AccessToken accessToken;
 
   private final GetUrl getUrl;
 
-  public GetRequest(
-      final HttpClient client, final AccessToken accessToken, final GetUrl getUrl) {
+  public GetRequest(final HttpClient client, final AccessToken accessToken, final GetUrl getUrl) {
     this.client = client;
     this.accessToken = accessToken;
     this.getUrl = getUrl;

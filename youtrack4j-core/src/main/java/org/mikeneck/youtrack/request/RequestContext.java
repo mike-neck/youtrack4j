@@ -19,13 +19,14 @@ import org.asynchttpclient.AsyncHttpClient;
 
 public class RequestContext {
 
-    private final AsyncHttpClient client;
-    private final AccessToken accessToken;
-    private final BaseUrl baseUrl;
+  private final AsyncHttpClient client;
+  private final AccessToken accessToken;
+  private final BaseUrl baseUrl;
 
-    public RequestContext(final AsyncHttpClient client, final AccessToken accessToken, final BaseUrl baseUrl) {
-        this.client = client;
-        this.accessToken = accessToken;
-        this.baseUrl = baseUrl;
-    }
+  public RequestContext(
+      final AsyncHttpClient client, final AccessToken accessToken, final BaseUrl baseUrl) {
+    this.client = client;
+    this.accessToken = accessToken;
+    this.baseUrl = baseUrl;
+  }
 }

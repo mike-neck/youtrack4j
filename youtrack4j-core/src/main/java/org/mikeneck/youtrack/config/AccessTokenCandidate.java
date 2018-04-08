@@ -15,9 +15,8 @@
  */
 package org.mikeneck.youtrack.config;
 
-import org.mikeneck.youtrack.request.AccessToken;
-
 import java.util.Optional;
+import org.mikeneck.youtrack.request.AccessToken;
 
 public interface AccessTokenCandidate {
 

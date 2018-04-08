@@ -15,9 +15,8 @@
  */
 package org.mikeneck.youtrack.project;
 
-import org.mikeneck.youtrack.util.SingleJsonForm;
-
 import java.util.Objects;
+import org.mikeneck.youtrack.util.SingleJsonForm;
 
 public class AssigneeLogin {
 

@@ -15,10 +15,8 @@
  */
 package org.mikeneck.youtrack.util;
 
-import org.junit.jupiter.api.Test;
-import org.mikeneck.youtrack.project.AssigneeName;
-import org.mikeneck.youtrack.project.LongYouTrackProject;
-import org.mikeneck.youtrack.project.YouTrackProject;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -27,9 +25,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import org.junit.jupiter.api.Test;
+import org.mikeneck.youtrack.project.AssigneeName;
+import org.mikeneck.youtrack.project.LongYouTrackProject;
+import org.mikeneck.youtrack.project.YouTrackProject;
 
 class CodecTest {
 

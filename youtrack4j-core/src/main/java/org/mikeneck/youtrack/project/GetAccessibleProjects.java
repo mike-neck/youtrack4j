@@ -15,17 +15,16 @@
  */
 package org.mikeneck.youtrack.project;
 
+import java.util.List;
+import java.util.Optional;
 import org.mikeneck.youtrack.request.AccessToken;
 import org.mikeneck.youtrack.request.ApiRequest;
 import org.mikeneck.youtrack.request.GetRequest;
-import org.mikeneck.youtrack.request.http.QueryParameters;
 import org.mikeneck.youtrack.request.http.GetUrl;
 import org.mikeneck.youtrack.request.http.HttpClient;
 import org.mikeneck.youtrack.request.http.HttpResponse;
+import org.mikeneck.youtrack.request.http.QueryParameters;
 import org.mikeneck.youtrack.util.Codec;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface GetAccessibleProjects extends ApiRequest<List<YouTrackProject>> {
 

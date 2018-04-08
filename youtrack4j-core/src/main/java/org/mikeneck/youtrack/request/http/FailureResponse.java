@@ -17,7 +17,7 @@ package org.mikeneck.youtrack.request.http;
 
 public interface FailureResponse {
 
-    int getStatusCode();
+  int getStatusCode();
 
-    String getBody();
+  String getBody();
 }

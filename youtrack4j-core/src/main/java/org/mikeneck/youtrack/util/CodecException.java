@@ -17,9 +17,9 @@ package org.mikeneck.youtrack.util;
 
 public class CodecException extends RuntimeException {
 
-    private static final long serialVersionUID = -363128454848L;
+  private static final long serialVersionUID = -363128454848L;
 
-    private final String json;
+  private final String json;
 
   CodecException(final String json, final String message, final Throwable cause) {
     super(message, cause);

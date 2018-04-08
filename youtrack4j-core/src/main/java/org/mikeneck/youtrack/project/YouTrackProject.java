@@ -17,6 +17,7 @@ package org.mikeneck.youtrack.project;
 
 public interface YouTrackProject {
 
-    String getName();
-    String id();
+  String getName();
+
+  String id();
 }

@@ -17,11 +17,10 @@ package org.mikeneck.youtrack.project;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.mikeneck.youtrack.util.JsonForm;
 import org.mikeneck.youtrack.util.SingleJsonForm;
 
-public class LongYouTrackProject  implements YouTrackProject {
+public class LongYouTrackProject implements YouTrackProject {
 
   private final String name;
   private final String shortName;
@@ -48,17 +47,17 @@ public class LongYouTrackProject  implements YouTrackProject {
     this.assigneesFullName = assigneesFullName;
   }
 
-    @Override
-    public String getName() {
-        return name;
-    }
+  @Override
+  public String getName() {
+    return name;
+  }
 
-    @Override
-    public String id() {
-        return shortName;
-    }
+  @Override
+  public String id() {
+    return shortName;
+  }
 
-    public static class Json implements JsonForm<YouTrackProject> {
+  public static class Json implements JsonForm<YouTrackProject> {
     private String name;
     private String shortName;
     private String description;

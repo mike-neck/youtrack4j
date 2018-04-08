@@ -15,30 +15,29 @@
  */
 package org.mikeneck.youtrack.request.http;
 
-import org.asynchttpclient.Response;
-
 import java.nio.charset.StandardCharsets;
+import org.asynchttpclient.Response;
 
 public class AsyncHttpClientBackedHttpResponse implements HttpResponse {
 
-    private final Response response;
+  private final Response response;
 
-    public AsyncHttpClientBackedHttpResponse(final Response response) {
-        this.response = response;
-    }
+  public AsyncHttpClientBackedHttpResponse(final Response response) {
+    this.response = response;
+  }
 
-    @Override
-    public int getStatusCode() {
-        return response.getStatusCode();
-    }
+  @Override
+  public int getStatusCode() {
+    return response.getStatusCode();
+  }
 
-    @Override
-    public String getBody() {
-        return response.getResponseBody(StandardCharsets.UTF_8);
-    }
+  @Override
+  public String getBody() {
+    return response.getResponseBody(StandardCharsets.UTF_8);
+  }
 
-    @Override
-    public Iterable<String> header(final String headerName) {
-        return response.getHeaders(headerName);
-    }
+  @Override
+  public Iterable<String> header(final String headerName) {
+    return response.getHeaders(headerName);
+  }
 }

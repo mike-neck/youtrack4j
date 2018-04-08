@@ -15,6 +15,10 @@
  */
 package org.mikeneck.youtrack.request.http;
 
+import static org.asynchttpclient.Dsl.get;
+
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.RequestBuilder;
@@ -23,11 +27,6 @@ import org.eclipse.collections.api.map.ImmutableMap;
 import org.eclipse.collections.impl.factory.Maps;
 import org.mikeneck.youtrack.request.*;
 import reactor.core.publisher.Mono;
-
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-
-import static org.asynchttpclient.Dsl.get;
 
 public class AsyncHttpClientBackedHttpClient implements HttpClient {
 
