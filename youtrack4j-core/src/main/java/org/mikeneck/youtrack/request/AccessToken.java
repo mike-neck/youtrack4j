@@ -30,6 +30,10 @@ public class AccessToken implements Serializable {
     this.accessToken = accessToken;
   }
 
+  String bearer() {
+    return "Bearer " + accessToken;
+  }
+
   String get() {
     return accessToken;
   }

@@ -16,7 +16,12 @@
 package org.mikeneck.youtrack.request.http;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.function.Function;
+
+import io.netty.handler.codec.http.HttpHeaders;
 import org.asynchttpclient.Response;
+import org.eclipse.collections.impl.factory.Lists;
 
 public class AsyncHttpClientBackedHttpResponse implements HttpResponse {
 
@@ -34,6 +39,12 @@ public class AsyncHttpClientBackedHttpResponse implements HttpResponse {
   @Override
   public String getBody() {
     return response.getResponseBody(StandardCharsets.UTF_8);
+  }
+
+  @Override
+  public Iterable<Header> headers() {
+    final HttpHeaders headers = response.getHeaders();
+    return Lists.immutable.ofAll(headers).collect(e -> new Header(e.getKey(), e.getValue()));
   }
 
   @Override

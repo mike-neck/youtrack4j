@@ -18,7 +18,7 @@ package org.mikeneck.youtrack.request.http;
 import org.mikeneck.youtrack.request.ApiResponse;
 import org.mikeneck.youtrack.request.Handler;
 
-public interface HttpClient {
+public interface HttpClient extends AutoCloseable {
 
   Get forGet(final GetUrl getUrl);
 

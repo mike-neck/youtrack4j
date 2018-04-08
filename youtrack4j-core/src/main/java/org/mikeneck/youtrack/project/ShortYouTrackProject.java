@@ -37,6 +37,15 @@ public class ShortYouTrackProject implements YouTrackProject {
     return shortName;
   }
 
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("ShortYouTrackProject{");
+    sb.append("name='").append(name).append('\'');
+    sb.append(", shortName='").append(shortName).append('\'');
+    sb.append('}');
+    return sb.toString();
+  }
+
   public static class Json implements JsonForm<YouTrackProject> {
     private String name;
     private String shortName;

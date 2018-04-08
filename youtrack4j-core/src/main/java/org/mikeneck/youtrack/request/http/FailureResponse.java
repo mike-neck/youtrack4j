@@ -20,4 +20,6 @@ public interface FailureResponse {
   int getStatusCode();
 
   String getBody();
+
+  Iterable<Header> headers();
 }

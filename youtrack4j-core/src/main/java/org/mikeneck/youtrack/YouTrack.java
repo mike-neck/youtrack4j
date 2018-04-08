@@ -24,7 +24,7 @@ import org.mikeneck.youtrack.request.http.HttpClient;
 
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
-public final class YouTrack {
+public final class YouTrack implements AutoCloseable{
 
   private final RequestContext context;
 
@@ -52,4 +52,9 @@ public final class YouTrack {
   public GetAccessibleProjects getAccessibleProjects() {
     return GetAccessibleProjects.noVerbose(context);
   }
+
+    @Override
+    public void close() throws Exception {
+        context.close();
+    }
 }

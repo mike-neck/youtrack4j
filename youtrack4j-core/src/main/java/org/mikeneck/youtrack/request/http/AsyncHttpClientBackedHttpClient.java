@@ -45,6 +45,11 @@ public class AsyncHttpClientBackedHttpClient implements HttpClient {
     return new GetImpl(getUrl, Maps.immutable.empty(), Maps.immutable.empty());
   }
 
+  @Override
+  public void close() throws Exception {
+    client.close();
+  }
+
   private class GetImpl implements HttpClient.Get {
 
     private final GetUrl getUrl;
@@ -97,12 +102,13 @@ public class AsyncHttpClientBackedHttpClient implements HttpClient {
                     client.executeRequest(request).toCompletableFuture();
                 future.thenAccept(
                     response -> {
-                      final Optional<R> result =
-                          extractor.handle(new AsyncHttpClientBackedHttpResponse(response));
+                      final AsyncHttpClientBackedHttpResponse res =
+                          new AsyncHttpClientBackedHttpResponse(response);
+                      final Optional<R> result = extractor.handle(res);
                       result.ifPresent(sink::success);
                       if (!result.isPresent()) {
                         final ApiException exception =
-                            new ApiException(response.getStatusCode(), response.getResponseBody());
+                            new ApiException(res.getStatusCode(), res.getBody(), res.headers());
                         sink.error(exception);
                       }
                     });

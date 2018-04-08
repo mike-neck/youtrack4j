@@ -21,5 +21,7 @@ public interface HttpResponse {
 
   String getBody();
 
+  Iterable<Header> headers();
+
   Iterable<String> header(final String headerName);
 }

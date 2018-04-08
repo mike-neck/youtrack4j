@@ -55,7 +55,7 @@ public class MonoBasedResponse<R> implements ApiResponse<R> {
                                         sink.error((ApiException) res);
                                       } else {
                                         sink.error(
-                                            new ApiException(res.getStatusCode(), res.getBody()));
+                                            new ApiException(res.getStatusCode(), res.getBody(), res.headers()));
                                       }
                                     })));
     return new MonoBasedResponse<>(next);
@@ -71,5 +71,10 @@ public class MonoBasedResponse<R> implements ApiResponse<R> {
               }
             });
     return new MonoBasedResponse<>(next);
+  }
+
+  @Override
+  public R block() throws RuntimeException {
+    return mono.block();
   }
 }

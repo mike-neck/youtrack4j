@@ -24,4 +24,6 @@ public interface ApiResponse<R> {
   <S> ApiResponse<S> next(final Handler.NextRequest<? super R, ? extends S> nextRequest);
 
   ApiResponse<R> onFailure(final Handler.FailureHandler failureHandler);
+
+  R block() throws RuntimeException;
 }

@@ -55,7 +55,7 @@ public abstract class GetRequest<R> implements ApiRequest<R> {
   public ApiResponse<R> executeRequest() {
     return client
         .forGet(getUrl)
-        .withHeader("Authorization", accessToken.get())
+        .withHeader("Authorization", accessToken.bearer())
         .withHeader("Accept", "application/json")
         .withQueryParameters(queryParameters())
         .executeRequest(this::extractResult);

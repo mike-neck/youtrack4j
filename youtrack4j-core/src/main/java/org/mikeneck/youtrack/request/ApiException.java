@@ -16,6 +16,7 @@
 package org.mikeneck.youtrack.request;
 
 import org.mikeneck.youtrack.request.http.FailureResponse;
+import org.mikeneck.youtrack.request.http.Header;
 
 public class ApiException extends RuntimeException implements FailureResponse {
 
@@ -23,11 +24,13 @@ public class ApiException extends RuntimeException implements FailureResponse {
 
   private final int statusCode;
   private final String responseBody;
+  private final Iterable<Header> headers;
 
-  public ApiException(final int statusCode, final String responseBody) {
+  public ApiException(final int statusCode, final String responseBody, final Iterable<Header> headers) {
     super(String.format("%d: %s", statusCode, responseBody));
     this.statusCode = statusCode;
     this.responseBody = responseBody;
+      this.headers = headers;
   }
 
   @Override
@@ -39,4 +42,9 @@ public class ApiException extends RuntimeException implements FailureResponse {
   public String getBody() {
     return responseBody;
   }
+
+    @Override
+    public Iterable<Header> headers() {
+        return headers;
+    }
 }

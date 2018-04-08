@@ -18,7 +18,7 @@ package org.mikeneck.youtrack.request;
 import org.mikeneck.youtrack.request.http.GetUrl;
 import org.mikeneck.youtrack.request.http.HttpClient;
 
-public class RequestContext {
+public class RequestContext implements AutoCloseable {
 
   private final HttpClient client;
   private final AccessToken accessToken;
@@ -42,4 +42,9 @@ public class RequestContext {
   public GetUrl get(final String path) {
     return baseUrl.get(path);
   }
+
+    @Override
+    public void close() throws Exception {
+        client.close();
+    }
 }
