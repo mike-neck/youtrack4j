@@ -32,8 +32,12 @@ public class AsyncHttpClientBackedHttpClient implements HttpClient {
 
   private final AsyncHttpClient client;
 
-  public AsyncHttpClientBackedHttpClient(final AsyncHttpClient client) {
+  private AsyncHttpClientBackedHttpClient(final AsyncHttpClient client) {
     this.client = client;
+  }
+
+  public static HttpClient with(final AsyncHttpClient client) {
+    return new AsyncHttpClientBackedHttpClient(client);
   }
 
   @Override

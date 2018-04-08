@@ -15,22 +15,28 @@
  */
 package org.mikeneck.youtrack;
 
-import static org.asynchttpclient.Dsl.asyncHttpClient;
-
 import org.asynchttpclient.AsyncHttpClient;
 import org.jetbrains.annotations.NotNull;
 import org.mikeneck.youtrack.project.GetAccessibleProjects;
+import org.mikeneck.youtrack.request.RequestContext;
+import org.mikeneck.youtrack.request.http.AsyncHttpClientBackedHttpClient;
+import org.mikeneck.youtrack.request.http.HttpClient;
+
+import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 public final class YouTrack {
 
-  private final AsyncHttpClient client;
+  private final RequestContext context;
 
-  private final YouTrackConfiguration configuration;
+  private YouTrack(
+      @NotNull final HttpClient client, @NotNull final YouTrackConfiguration configuration) {
+    this.context =
+        new RequestContext(client, configuration.getAccessToken(), configuration.getBaseUrl());
+  }
 
   private YouTrack(
       @NotNull final AsyncHttpClient client, @NotNull final YouTrackConfiguration configuration) {
-    this.client = client;
-    this.configuration = configuration;
+    this(AsyncHttpClientBackedHttpClient.with(client), configuration);
   }
 
   private YouTrack() {
@@ -44,6 +50,6 @@ public final class YouTrack {
 
   @NotNull
   public GetAccessibleProjects getAccessibleProjects() {
-    return null;
+    return GetAccessibleProjects.noVerbose(context);
   }
 }

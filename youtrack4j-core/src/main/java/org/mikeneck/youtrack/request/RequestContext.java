@@ -15,18 +15,31 @@
  */
 package org.mikeneck.youtrack.request;
 
-import org.asynchttpclient.AsyncHttpClient;
+import org.mikeneck.youtrack.request.http.GetUrl;
+import org.mikeneck.youtrack.request.http.HttpClient;
 
 public class RequestContext {
 
-  private final AsyncHttpClient client;
+  private final HttpClient client;
   private final AccessToken accessToken;
   private final BaseUrl baseUrl;
 
   public RequestContext(
-      final AsyncHttpClient client, final AccessToken accessToken, final BaseUrl baseUrl) {
+      final HttpClient client, final AccessToken accessToken, final BaseUrl baseUrl) {
     this.client = client;
     this.accessToken = accessToken;
     this.baseUrl = baseUrl;
+  }
+
+  public HttpClient client() {
+    return client;
+  }
+
+  public AccessToken accessToken() {
+    return accessToken;
+  }
+
+  public GetUrl get(final String path) {
+    return baseUrl.get(path);
   }
 }

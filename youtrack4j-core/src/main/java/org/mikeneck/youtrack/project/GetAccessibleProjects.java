@@ -20,6 +20,7 @@ import java.util.Optional;
 import org.mikeneck.youtrack.request.AccessToken;
 import org.mikeneck.youtrack.request.ApiRequest;
 import org.mikeneck.youtrack.request.GetRequest;
+import org.mikeneck.youtrack.request.RequestContext;
 import org.mikeneck.youtrack.request.http.GetUrl;
 import org.mikeneck.youtrack.request.http.HttpClient;
 import org.mikeneck.youtrack.request.http.HttpResponse;
@@ -29,6 +30,11 @@ import org.mikeneck.youtrack.util.Codec;
 public interface GetAccessibleProjects extends ApiRequest<List<YouTrackProject>> {
 
   ApiRequest<List<YouTrackProject>> verbose();
+
+  static GetAccessibleProjects noVerbose(final RequestContext context) {
+      final GetUrl getUrl = context.get("/project/all");
+    return new NoVerbose(context.client(), context.accessToken(), getUrl);
+  }
 
   class NoVerbose extends GetRequest<List<YouTrackProject>> implements GetAccessibleProjects {
 

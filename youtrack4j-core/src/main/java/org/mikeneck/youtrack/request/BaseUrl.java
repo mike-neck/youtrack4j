@@ -36,8 +36,8 @@ public class BaseUrl implements Serializable {
     this.baseUrl = baseUrl;
   }
 
-  public GetUrl get(final String endpoint) {
-    final String request = URI.create(baseUrl).resolve("rest").resolve(endpoint).toASCIIString();
+  public GetUrl get(final String path) {
+    final String request = URI.create(baseUrl).resolve("rest").resolve(path).toASCIIString();
     return new GetUrl(request);
   }
 
