@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.request;
+package org.mikeneck.youtrack.request.http;
 
 import org.eclipse.collections.api.map.ImmutableMap;
 import org.eclipse.collections.impl.factory.Maps;

@@ -15,9 +15,18 @@
  */
 package org.mikeneck.youtrack.request;
 
+import org.mikeneck.youtrack.request.http.FailureResponse;
+import org.mikeneck.youtrack.request.http.HttpResponse;
+
+import java.util.Optional;
+
 public final class Handler {
 
     private Handler() {}
+
+    public interface BodyHandler<R> {
+        Optional<R> handle(final HttpResponse response);
+    }
 
     public interface SuccessHandler<R> {
         void handle(final R result);

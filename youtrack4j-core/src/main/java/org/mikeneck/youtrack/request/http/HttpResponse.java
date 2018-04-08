@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.request;
+package org.mikeneck.youtrack.request.http;
 
-public interface FailureResponse {
+public interface HttpResponse {
 
     int getStatusCode();
 
     String getBody();
+
+    Iterable<String> header(final String headerName);
 }

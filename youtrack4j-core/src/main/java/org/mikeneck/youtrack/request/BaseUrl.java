@@ -17,6 +17,7 @@ package org.mikeneck.youtrack.request;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mikeneck.youtrack.request.http.GetUrl;
 
 import java.io.Serializable;
 import java.net.URI;

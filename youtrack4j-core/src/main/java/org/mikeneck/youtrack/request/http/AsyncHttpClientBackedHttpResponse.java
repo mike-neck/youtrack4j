@@ -13,30 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.request;
+package org.mikeneck.youtrack.request.http;
 
-import org.mikeneck.youtrack.request.http.FailureResponse;
+import org.asynchttpclient.Response;
 
-public class ApiException extends RuntimeException implements FailureResponse {
+import java.nio.charset.StandardCharsets;
 
-    private static final long serialVersionUID = -370990231766752L;
+public class AsyncHttpClientBackedHttpResponse implements HttpResponse {
 
-    private final int statusCode;
-    private final String responseBody;
+    private final Response response;
 
-    public ApiException(final int statusCode, final String responseBody) {
-        super(String.format("%d: %s", statusCode, responseBody));
-        this.statusCode = statusCode;
-        this.responseBody = responseBody;
+    public AsyncHttpClientBackedHttpResponse(final Response response) {
+        this.response = response;
     }
 
     @Override
     public int getStatusCode() {
-        return statusCode;
+        return response.getStatusCode();
     }
 
     @Override
     public String getBody() {
-        return responseBody;
+        return response.getResponseBody(StandardCharsets.UTF_8);
+    }
+
+    @Override
+    public Iterable<String> header(final String headerName) {
+        return response.getHeaders(headerName);
     }
 }

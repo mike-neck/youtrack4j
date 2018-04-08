@@ -15,31 +15,29 @@
  */
 package org.mikeneck.youtrack.request;
 
-import org.asynchttpclient.*;
-import org.asynchttpclient.RequestBuilder;
-import reactor.core.publisher.Mono;
+import org.mikeneck.youtrack.request.http.GetUrl;
+import org.mikeneck.youtrack.request.http.HttpClient;
+import org.mikeneck.youtrack.request.http.HttpResponse;
+import org.mikeneck.youtrack.request.http.QueryParameters;
 
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-
-import static org.asynchttpclient.Dsl.get;
 
 public abstract class GetRequest<R> implements ApiRequest<R> {
 
-  private final AsyncHttpClient client;
+    private final HttpClient client;
 
   private final AccessToken accessToken;
 
   private final GetUrl getUrl;
 
   public GetRequest(
-      final AsyncHttpClient client, final AccessToken accessToken, final GetUrl getUrl) {
+      final HttpClient client, final AccessToken accessToken, final GetUrl getUrl) {
     this.client = client;
     this.accessToken = accessToken;
     this.getUrl = getUrl;
   }
 
-  protected AsyncHttpClient client() {
+  protected HttpClient client() {
     return client;
   }
 
@@ -53,32 +51,15 @@ public abstract class GetRequest<R> implements ApiRequest<R> {
 
   protected abstract QueryParameters queryParameters();
 
-  protected abstract Optional<R> extractResult(final Response response);
+  protected abstract Optional<R> extractResult(final HttpResponse response);
 
   @Override
   public ApiResponse<R> executeRequest() {
-    final RequestBuilder requestBuilder =
-        get(getUrl.url)
-            .addHeader("Authorization", accessToken.get())
-            .addHeader("Accept", "application/json");
-    final Request request =
-        queryParameters()
-            .configureParameter(requestBuilder, RequestBuilderBase::addQueryParam)
-            .build();
-    final CompletableFuture<Response> future = client.executeRequest(request).toCompletableFuture();
-    final Mono<R> mono =
-        Mono.create(
-            sink ->
-                future.thenAccept(
-                    response -> {
-                      final Optional<R> result = extractResult(response);
-                      if (!result.isPresent()) {
-                        final ApiException apiException =
-                            new ApiException(response.getStatusCode(), response.getResponseBody());
-                        sink.error(apiException);
-                      }
-                      result.ifPresent(sink::success);
-                    }));
-    return new MonoBasedResponse<>(mono);
+    return client
+        .forGet(getUrl)
+        .withHeader("Authorization", accessToken.get())
+        .withHeader("Accept", "application/json")
+        .withQueryParameters(queryParameters())
+        .executeRequest(this::extractResult);
   }
 }

@@ -15,12 +15,15 @@
  */
 package org.mikeneck.youtrack.project;
 
-import org.asynchttpclient.AsyncHttpClient;
-import org.asynchttpclient.Response;
-import org.mikeneck.youtrack.request.*;
+import org.mikeneck.youtrack.request.AccessToken;
+import org.mikeneck.youtrack.request.ApiRequest;
+import org.mikeneck.youtrack.request.GetRequest;
+import org.mikeneck.youtrack.request.http.QueryParameters;
+import org.mikeneck.youtrack.request.http.GetUrl;
+import org.mikeneck.youtrack.request.http.HttpClient;
+import org.mikeneck.youtrack.request.http.HttpResponse;
 import org.mikeneck.youtrack.util.Codec;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +33,7 @@ public interface GetAccessibleProjects extends ApiRequest<List<YouTrackProject>>
 
   class NoVerbose extends GetRequest<List<YouTrackProject>> implements GetAccessibleProjects {
 
-    NoVerbose(final AsyncHttpClient client, final AccessToken accessToken, final GetUrl getUrl) {
+    NoVerbose(final HttpClient client, final AccessToken accessToken, final GetUrl getUrl) {
       super(client, accessToken, getUrl);
     }
 
@@ -45,11 +48,11 @@ public interface GetAccessibleProjects extends ApiRequest<List<YouTrackProject>>
     }
 
     @Override
-    protected Optional<List<YouTrackProject>> extractResult(final Response response) {
+    protected Optional<List<YouTrackProject>> extractResult(final HttpResponse response) {
       if (response.getStatusCode() != 200) {
         return Optional.empty();
       }
-      final String body = response.getResponseBody(StandardCharsets.UTF_8);
+      final String body = response.getBody();
       final List<YouTrackProject> youTrackProjects =
           Codec.instance()
               .deserialize(new Codec.TypeRef<List<ShortYouTrackProject.Json>>() {}, body);
@@ -59,7 +62,7 @@ public interface GetAccessibleProjects extends ApiRequest<List<YouTrackProject>>
 
   class Verbose extends GetRequest<List<YouTrackProject>> {
 
-    Verbose(final AsyncHttpClient client, final AccessToken accessToken, final GetUrl getUrl) {
+    Verbose(final HttpClient client, final AccessToken accessToken, final GetUrl getUrl) {
       super(client, accessToken, getUrl);
     }
 
@@ -69,11 +72,11 @@ public interface GetAccessibleProjects extends ApiRequest<List<YouTrackProject>>
     }
 
     @Override
-    protected Optional<List<YouTrackProject>> extractResult(final Response response) {
+    protected Optional<List<YouTrackProject>> extractResult(final HttpResponse response) {
       if (response.getStatusCode() != 200) {
         return Optional.empty();
       }
-      final String body = response.getResponseBody(StandardCharsets.UTF_8);
+      final String body = response.getBody();
       final List<YouTrackProject> youTrackProjects =
           Codec.instance()
               .deserialize(new Codec.TypeRef<List<LongYouTrackProject.Json>>() {}, body);
