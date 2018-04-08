@@ -15,29 +15,7 @@
  */
 package org.mikeneck.youtrack.util;
 
-public abstract class JsonForm<T> {
+public interface JsonForm<T> {
 
-  protected String value;
-
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(final String value) {
-    this.value = value;
-  }
-
-  public JsonForm() {}
-
-  protected JsonForm(final String value) {
-    this.value = value;
-  }
-
-  @Override
-  public abstract boolean equals(final Object other);
-
-  @Override
-  public abstract int hashCode();
-
-  public abstract T immutable();
+  T immutable();
 }

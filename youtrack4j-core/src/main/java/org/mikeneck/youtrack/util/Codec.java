@@ -23,6 +23,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Codec {
 
@@ -47,9 +48,13 @@ public class Codec {
     }
   }
 
-  public <E, T extends Collection<E>> T deserialize(final TypeRef<T> typeRef, final String json) {
+  public <E, J extends JsonForm<E>, C extends Collection<J>> List<E> deserialize(final TypeRef<C> typeRef, final String json) {
       try {
-          return objectMapper.readValue(json, typeRef);
+          final C collection = objectMapper.readValue(json, typeRef);
+          final List<E> list = collection.stream()
+                  .map(JsonForm::immutable)
+                  .collect(Collectors.toList());
+          return list;
       } catch (IOException e) {
           throw new CodecException(json, "deserialization for collection", e);
       }

@@ -15,7 +15,7 @@
  */
 package org.mikeneck.youtrack.project;
 
-import org.mikeneck.youtrack.util.JsonForm;
+import org.mikeneck.youtrack.util.SingleJsonForm;
 
 import java.util.Objects;
 
@@ -27,7 +27,7 @@ public class AssigneeLogin {
     this.value = value;
   }
 
-  public static class Json extends JsonForm<AssigneeLogin> {
+  public static class Json extends SingleJsonForm<AssigneeLogin> {
 
     public Json() {}
 

@@ -13,10 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.project;
+package org.mikeneck.youtrack.util;
 
-public interface YouTrackProject {
+public abstract class SingleJsonForm<T> implements JsonForm<T> {
 
-    String getName();
-    String id();
+  protected String value;
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(final String value) {
+    this.value = value;
+  }
+
+  public SingleJsonForm() {}
+
+  protected SingleJsonForm(final String value) {
+    this.value = value;
+  }
+
+  @Override
+  public abstract boolean equals(final Object other);
+
+  @Override
+  public abstract int hashCode();
 }

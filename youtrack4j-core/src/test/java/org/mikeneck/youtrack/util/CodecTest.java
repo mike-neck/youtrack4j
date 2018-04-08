@@ -17,6 +17,7 @@ package org.mikeneck.youtrack.util;
 
 import org.junit.jupiter.api.Test;
 import org.mikeneck.youtrack.project.AssigneeName;
+import org.mikeneck.youtrack.project.LongYouTrackProject;
 import org.mikeneck.youtrack.project.YouTrackProject;
 
 import java.io.BufferedReader;
@@ -52,16 +53,16 @@ class CodecTest {
   @Test
   void projectListJson() {
     final String projectJson = json("project-list.json");
-    final List<YouTrackProject.Json> youTrackProjects =
-        codec.deserialize(new Codec.TypeRef<List<YouTrackProject.Json>>() {}, projectJson);
+    final List<YouTrackProject> youTrackProjects =
+        codec.deserialize(new Codec.TypeRef<List<LongYouTrackProject.Json>>() {}, projectJson);
     assertThat(youTrackProjects).hasSize(4);
   }
 
   @Test
   void projectJson() {
     final String projectJson = json("project.json");
-    final YouTrackProject.Json youTrackProject =
-        codec.deserialize(YouTrackProject.Json.class, projectJson);
+    final LongYouTrackProject.Json youTrackProject =
+        codec.deserialize(LongYouTrackProject.Json.class, projectJson);
     //noinspection ResultOfMethodCallIgnored
     assertAll(
         () -> assertThat(youTrackProject.immutable()).isNotNull(),

@@ -26,39 +26,59 @@ import static org.asynchttpclient.Dsl.get;
 
 public abstract class GetRequest<R> implements ApiRequest<R> {
 
-    private final AsyncHttpClient client;
+  private final AsyncHttpClient client;
 
-    private final AccessToken accessToken;
+  private final AccessToken accessToken;
 
-    private final GetUrl getUrl;
+  private final GetUrl getUrl;
 
-    public GetRequest(final AsyncHttpClient client, final AccessToken accessToken, final GetUrl getUrl) {
-        this.client = client;
-        this.accessToken = accessToken;
-        this.getUrl = getUrl;
-    }
+  public GetRequest(
+      final AsyncHttpClient client, final AccessToken accessToken, final GetUrl getUrl) {
+    this.client = client;
+    this.accessToken = accessToken;
+    this.getUrl = getUrl;
+  }
 
-    abstract QueryParameters queryParameters();
+  protected AsyncHttpClient client() {
+    return client;
+  }
 
-    abstract Optional<R> extractResult(final Response response);
+  protected AccessToken accessToken() {
+    return accessToken;
+  }
 
-    @Override
-    public ApiResponse<R> executeRequest() {
-        final RequestBuilder requestBuilder = get(getUrl.url)
-                .addHeader("Authorization", accessToken.get())
-                .addHeader("Accept", "application/json");
-        final Request request = queryParameters()
-                .configureParameter(requestBuilder, RequestBuilderBase::addQueryParam)
-                .build();
-        final CompletableFuture<Response> future = client.executeRequest(request).toCompletableFuture();
-        final Mono<R> mono = Mono.create(sink -> future.thenAccept(response -> {
-            final Optional<R> result = extractResult(response);
-            if (!result.isPresent()) {
-                final ApiException apiException = new ApiException(response.getStatusCode(), response.getResponseBody());
-                sink.error(apiException);
-            }
-            result.ifPresent(sink::success);
-        }));
-        return new MonoBasedResponse<>(mono);
-    }
+  protected GetUrl getUrl() {
+    return getUrl;
+  }
+
+  protected abstract QueryParameters queryParameters();
+
+  protected abstract Optional<R> extractResult(final Response response);
+
+  @Override
+  public ApiResponse<R> executeRequest() {
+    final RequestBuilder requestBuilder =
+        get(getUrl.url)
+            .addHeader("Authorization", accessToken.get())
+            .addHeader("Accept", "application/json");
+    final Request request =
+        queryParameters()
+            .configureParameter(requestBuilder, RequestBuilderBase::addQueryParam)
+            .build();
+    final CompletableFuture<Response> future = client.executeRequest(request).toCompletableFuture();
+    final Mono<R> mono =
+        Mono.create(
+            sink ->
+                future.thenAccept(
+                    response -> {
+                      final Optional<R> result = extractResult(response);
+                      if (!result.isPresent()) {
+                        final ApiException apiException =
+                            new ApiException(response.getStatusCode(), response.getResponseBody());
+                        sink.error(apiException);
+                      }
+                      result.ifPresent(sink::success);
+                    }));
+    return new MonoBasedResponse<>(mono);
+  }
 }

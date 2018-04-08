@@ -19,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -33,6 +34,11 @@ public class BaseUrl implements Serializable {
 
   private BaseUrl(@NotNull final String baseUrl) {
     this.baseUrl = baseUrl;
+  }
+
+  public GetUrl get(final String endpoint) {
+    final String request = URI.create(baseUrl).resolve("rest").resolve(endpoint).toASCIIString();
+    return new GetUrl(request);
   }
 
   public static Optional<BaseUrl> optional(@Nullable final String baseUrl) {

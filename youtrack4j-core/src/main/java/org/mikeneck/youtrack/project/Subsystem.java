@@ -15,7 +15,7 @@
  */
 package org.mikeneck.youtrack.project;
 
-import org.mikeneck.youtrack.util.JsonForm;
+import org.mikeneck.youtrack.util.SingleJsonForm;
 
 import java.util.Objects;
 
@@ -27,7 +27,7 @@ public class Subsystem {
     this.value = value;
   }
 
-  public static class Json extends JsonForm<Subsystem> {
+  public static class Json extends SingleJsonForm<Subsystem> {
 
     public Json() {}
 

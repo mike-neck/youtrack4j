@@ -54,7 +54,7 @@ public final class QueryParameters {
       C configure(final C configuration, final String key, final String value);
   }
 
-  interface QueryValue {
+  public interface QueryValue {
     default QueryParameters value(final int value) {
       final String v = Integer.toString(value);
       return value(v);

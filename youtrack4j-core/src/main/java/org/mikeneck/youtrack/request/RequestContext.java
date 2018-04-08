@@ -13,10 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.project;
+package org.mikeneck.youtrack.request;
 
-public interface YouTrackProject {
+import org.asynchttpclient.AsyncHttpClient;
 
-    String getName();
-    String id();
+public class RequestContext {
+
+    private final AsyncHttpClient client;
+    private final AccessToken accessToken;
+    private final BaseUrl baseUrl;
+
+    public RequestContext(final AsyncHttpClient client, final AccessToken accessToken, final BaseUrl baseUrl) {
+        this.client = client;
+        this.accessToken = accessToken;
+        this.baseUrl = baseUrl;
+    }
 }
