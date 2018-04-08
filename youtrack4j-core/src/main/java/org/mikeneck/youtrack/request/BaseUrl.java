@@ -37,7 +37,7 @@ public class BaseUrl implements Serializable {
   }
 
   public GetUrl get(final String path) {
-    final String request = URI.create(baseUrl).resolve("rest").resolve(path).toASCIIString();
+    final String request = baseUrl + "/rest" + (path.startsWith("/") ? "" : "/") + path;
     return new GetUrl(request);
   }
 
