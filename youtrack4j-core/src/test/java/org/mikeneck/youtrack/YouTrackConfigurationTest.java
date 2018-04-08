@@ -19,8 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mikeneck.youtrack.config.AccessToken;
-import org.mikeneck.youtrack.config.BaseUrl;
+import org.mikeneck.youtrack.request.AccessToken;
+import org.mikeneck.youtrack.request.BaseUrl;
 
 class YouTrackConfigurationTest {
 

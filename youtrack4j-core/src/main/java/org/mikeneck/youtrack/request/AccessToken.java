@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.config;
+package org.mikeneck.youtrack.request;
 
 import java.io.Serializable;
 import java.util.Optional;
@@ -30,13 +30,17 @@ public class AccessToken implements Serializable {
     this.accessToken = accessToken;
   }
 
+  String get() {
+    return accessToken;
+  }
+
   @NotNull
   public static AccessToken of(@NotNull final String accessToken) {
     return new AccessToken(accessToken);
   }
 
   @NotNull
-  static Optional<AccessToken> optional(@Nullable final String accessToken) {
+  public static Optional<AccessToken> optional(@Nullable final String accessToken) {
     if (accessToken == null || accessToken.isEmpty()) {
       return Optional.empty();
     }

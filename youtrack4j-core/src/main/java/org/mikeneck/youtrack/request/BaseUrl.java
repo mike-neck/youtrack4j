@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.config;
+package org.mikeneck.youtrack.request;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.Optional;
 import java.util.regex.Pattern;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class BaseUrl implements Serializable {
 
@@ -30,7 +31,7 @@ public class BaseUrl implements Serializable {
 
   private final String baseUrl;
 
-  BaseUrl(@NotNull final String baseUrl) {
+  private BaseUrl(@NotNull final String baseUrl) {
     this.baseUrl = baseUrl;
   }
 

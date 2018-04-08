@@ -17,6 +17,8 @@ package org.mikeneck.youtrack.config;
 
 import java.util.Optional;
 import org.mikeneck.youtrack.YouTrackConfiguration;
+import org.mikeneck.youtrack.request.AccessToken;
+import org.mikeneck.youtrack.request.BaseUrl;
 
 public class SystemPropertyYouTrackConfigProvider implements YouTrackConfigProvider {
 

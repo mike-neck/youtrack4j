@@ -19,6 +19,8 @@ import java.util.Optional;
 import java.util.Properties;
 import org.jetbrains.annotations.NotNull;
 import org.mikeneck.youtrack.YouTrackConfiguration;
+import org.mikeneck.youtrack.request.AccessToken;
+import org.mikeneck.youtrack.request.BaseUrl;
 
 public class PropertyBasedYouTrackConfig implements YouTrackConfigProvider {
   @NotNull protected final Properties properties;

@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.config;
+package org.mikeneck.youtrack.request;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
-import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class BaseUrlTest {
 
@@ -45,12 +46,12 @@ class BaseUrlTest {
     final Optional<BaseUrl> baseUrl = BaseUrl.optional("https://foo-bar.myjetbrains.com/youtrack");
     assertThat(baseUrl)
         .isNotEmpty()
-        .contains(new BaseUrl("https://foo-bar.myjetbrains.com/youtrack"));
+        .contains(BaseUrl.of("https://foo-bar.myjetbrains.com/youtrack"));
   }
 
   @Test
   void usingLocalhost8080() {
     final Optional<BaseUrl> baseUrl = BaseUrl.optional("http://localhost:8080/youtrack");
-    assertThat(baseUrl).isNotEmpty().contains(new BaseUrl("http://localhost:8080/youtrack"));
+    assertThat(baseUrl).isNotEmpty().contains(BaseUrl.of("http://localhost:8080/youtrack"));
   }
 }

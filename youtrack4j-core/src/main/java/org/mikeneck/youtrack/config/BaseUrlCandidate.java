@@ -15,6 +15,8 @@
  */
 package org.mikeneck.youtrack.config;
 
+import org.mikeneck.youtrack.request.BaseUrl;
+
 import java.util.Optional;
 
 public interface BaseUrlCandidate {

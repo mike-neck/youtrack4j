@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
+import org.mikeneck.youtrack.request.AccessToken;
 import org.opentest4j.TestAbortedException;
 
 class FileYouTrackConfigProviderTest {

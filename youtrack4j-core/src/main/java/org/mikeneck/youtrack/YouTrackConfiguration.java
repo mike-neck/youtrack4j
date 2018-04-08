@@ -17,6 +17,8 @@ package org.mikeneck.youtrack;
 
 import org.jetbrains.annotations.NotNull;
 import org.mikeneck.youtrack.config.*;
+import org.mikeneck.youtrack.request.AccessToken;
+import org.mikeneck.youtrack.request.BaseUrl;
 import org.mikeneck.youtrack.util.First;
 
 public final class YouTrackConfiguration {
