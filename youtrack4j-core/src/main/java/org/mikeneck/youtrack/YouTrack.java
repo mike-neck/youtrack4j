@@ -19,7 +19,7 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 import org.asynchttpclient.AsyncHttpClient;
 import org.jetbrains.annotations.NotNull;
-import org.mikeneck.youtrack.project.GetAccessibleProjects;
+import org.mikeneck.youtrack.api.project.GetAccessibleProjects;
 import org.mikeneck.youtrack.request.RequestContext;
 import org.mikeneck.youtrack.request.http.AsyncHttpClientBackedHttpClient;
 import org.mikeneck.youtrack.request.http.HttpClient;

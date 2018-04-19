@@ -13,30 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.project;
+package org.mikeneck.youtrack.api.project;
 
 import java.util.Objects;
 import org.mikeneck.youtrack.util.SingleJsonForm;
 
-public class AssigneeName {
+public class AssigneeLogin {
 
   private final String value;
 
   @SuppressWarnings("WeakerAccess")
-  public AssigneeName(final String value) {
+  public AssigneeLogin(final String value) {
     this.value = value;
   }
 
   @Override
   public String toString() {
     //noinspection StringBufferReplaceableByString
-    final StringBuilder sb = new StringBuilder("AssigneeName{");
+    final StringBuilder sb = new StringBuilder("AssigneeLogin{");
     sb.append("value='").append(value).append('\'');
     sb.append('}');
     return sb.toString();
   }
 
-  public static class Json extends SingleJsonForm<AssigneeName> {
+  public static class Json extends SingleJsonForm<AssigneeLogin> {
 
     public Json() {}
 
@@ -62,8 +62,8 @@ public class AssigneeName {
     }
 
     @Override
-    public AssigneeName immutable() {
-      return new AssigneeName(value);
+    public AssigneeLogin immutable() {
+      return new AssigneeLogin(value);
     }
   }
 }

@@ -26,9 +26,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
-import org.mikeneck.youtrack.project.AssigneeName;
-import org.mikeneck.youtrack.project.LongYouTrackProject;
-import org.mikeneck.youtrack.project.YouTrackProject;
+import org.mikeneck.youtrack.api.project.AssigneeName;
+import org.mikeneck.youtrack.api.project.LongYouTrackProject;
+import org.mikeneck.youtrack.api.project.YouTrackProject;
 
 class CodecTest {
 

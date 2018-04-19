@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.project;
+package org.mikeneck.youtrack.api.project;
 
 import java.util.List;
 import java.util.stream.Collectors;
