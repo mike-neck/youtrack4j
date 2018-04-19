@@ -30,6 +30,22 @@ public class LongYouTrackProject implements YouTrackProject {
   private final List<AssigneeLogin> assigneesLogin;
   private final List<AssigneeName> assigneesFullName;
 
+  @Override
+  public String toString() {
+    //noinspection StringBufferReplaceableByString
+    final StringBuilder sb = new StringBuilder("LongYouTrackProject{");
+    sb.append("name='").append(name).append('\'');
+    sb.append(", shortName='").append(shortName).append('\'');
+    sb.append(", description='").append(description).append('\'');
+    sb.append(", isImporting=").append(isImporting);
+    sb.append(", subsystems=").append(subsystems);
+    sb.append(", assigneesLogin=").append(assigneesLogin);
+    sb.append(", assigneesFullName=").append(assigneesFullName);
+    sb.append('}');
+    return sb.toString();
+  }
+
+  @SuppressWarnings("WeakerAccess")
   public LongYouTrackProject(
       final String name,
       final String shortName,

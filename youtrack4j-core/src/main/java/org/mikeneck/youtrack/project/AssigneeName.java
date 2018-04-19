@@ -22,8 +22,18 @@ public class AssigneeName {
 
   private final String value;
 
+  @SuppressWarnings("WeakerAccess")
   public AssigneeName(final String value) {
     this.value = value;
+  }
+
+  @Override
+  public String toString() {
+    //noinspection StringBufferReplaceableByString
+    final StringBuilder sb = new StringBuilder("AssigneeName{");
+    sb.append("value='").append(value).append('\'');
+    sb.append('}');
+    return sb.toString();
   }
 
   public static class Json extends SingleJsonForm<AssigneeName> {
