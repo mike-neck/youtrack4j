@@ -40,7 +40,7 @@ class IssueIdByLocation implements IssueId {
     final String issueId = issueId();
     final int hyphen = issueId.lastIndexOf('-');
     final String projectId = issueId.substring(0, hyphen);
-    return new ProjectId(projectId);
+    return ProjectId.of(projectId);
   }
 
   private int hyphen() {

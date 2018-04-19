@@ -18,7 +18,7 @@ class IssueIdByLocationTest {
 
   @Test
   void projectIdReturnsTEST() {
-    assertThat(issueId.projectId()).isEqualTo(new ProjectId("TEST"));
+    assertThat(issueId.projectId()).isEqualTo(ProjectId.of("TEST"));
   }
 
   @Test

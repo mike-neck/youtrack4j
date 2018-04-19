@@ -19,8 +19,12 @@ public class ProjectId {
 
   private final String value;
 
-  public ProjectId(String value) {
+  private ProjectId(String value) {
     this.value = value;
+  }
+
+  public static ProjectId of(String projectId) {
+    return new ProjectId(projectId);
   }
 
   public String getValue() {

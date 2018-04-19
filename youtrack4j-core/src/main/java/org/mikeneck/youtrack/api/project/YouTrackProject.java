@@ -20,4 +20,8 @@ public interface YouTrackProject {
   String getName();
 
   String id();
+
+  default ProjectId projectId() {
+    return ProjectId.of(id());
+  }
 }
