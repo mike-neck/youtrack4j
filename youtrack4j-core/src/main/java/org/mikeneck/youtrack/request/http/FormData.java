@@ -18,48 +18,49 @@ package org.mikeneck.youtrack.request.http;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.map.ImmutableMap;
 import org.eclipse.collections.api.tuple.Pair;
+import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.Maps;
 import org.jetbrains.annotations.NotNull;
 
-public final class QueryParameters implements Parameters<String> {
+import java.util.List;
 
-  private final ImmutableMap<String, String> queries;
+public final class FormData implements Parameters<List<String>> {
 
-  public QueryParameters() {
-    this.queries = Maps.immutable.empty();
+  private final ImmutableMap<String, List<String>> form;
+
+  public FormData() {
+    this.form = Maps.immutable.empty();
   }
 
-  private QueryParameters(final ImmutableMap<String, String> queries) {
-    this.queries = queries;
+  private FormData(ImmutableMap<String, List<String>> form) {
+    this.form = form;
   }
 
-  @NotNull
-  @Override
-  public RichIterable<Pair<String, String>> parameters() {
-    return queries.keyValuesView();
+    @Override
+    @NotNull
+    public RichIterable<Pair<String, List<String>>> parameters() {
+        return form.keyValuesView();
+    }
+
+    public FormValue form(@NotNull final String key) {
+    return value -> new FormData(form.newWithKeyValue(key, value));
   }
 
-  @NotNull
-  public static QueryValue queryKey(@NotNull final String key) {
-    return value -> new QueryParameters(Maps.immutable.of(key, value));
-  }
-
-  @NotNull
-  public QueryValue withKey(@NotNull final String key) {
-    return value -> new QueryParameters(queries.newWithKeyValue(key, value));
-  }
-
-  public interface QueryValue {
-    default QueryParameters value(final int value) {
+  public interface FormValue {
+    default FormData value(final int value) {
       final String v = Integer.toString(value);
       return value(v);
     }
 
-    default QueryParameters value(final boolean value) {
+    default FormData value(final boolean value) {
       final String v = Boolean.toString(value);
       return value(v);
     }
 
-    QueryParameters value(@NotNull final String value);
+    default FormData value(final String value) {
+      return value(Lists.immutable.of(value).castToList());
+    }
+
+    FormData value(final List<String> value);
   }
 }

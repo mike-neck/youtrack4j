@@ -74,7 +74,7 @@ public class AsyncHttpClientBackedHttpClient implements HttpClient {
     @Override
     public Get withQueryParameters(final QueryParameters queryParameters) {
       final ImmutableMap<String, String> map =
-          queryParameters.configureParameter(queries, ImmutableMap::newWithKeyValue);
+          queryParameters.configureParameters(queries, ImmutableMap::newWithKeyValue);
       return new GetImpl(getUrl, headers, map);
     }
 
