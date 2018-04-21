@@ -15,11 +15,10 @@
  */
 package org.mikeneck.youtrack.request;
 
+import java.util.Optional;
 import org.mikeneck.youtrack.request.http.HttpClient;
 import org.mikeneck.youtrack.request.http.HttpResponse;
 import org.mikeneck.youtrack.request.http.PostUrl;
-
-import java.util.Optional;
 
 public abstract class PostRequest<R> implements ApiRequest<R> {
 

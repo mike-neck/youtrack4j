@@ -15,9 +15,8 @@
  */
 package org.mikeneck.youtrack.request;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.nio.file.Path;
+import org.jetbrains.annotations.NotNull;
 
 public interface MultipartEntry {
 

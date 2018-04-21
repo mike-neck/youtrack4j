@@ -1,9 +1,9 @@
 package org.mikeneck.youtrack.api.issue;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 import org.mikeneck.youtrack.api.project.ProjectId;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class IssueIdByLocationTest {
 

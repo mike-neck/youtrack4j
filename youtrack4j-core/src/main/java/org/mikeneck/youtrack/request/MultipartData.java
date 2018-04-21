@@ -15,6 +15,7 @@
  */
 package org.mikeneck.youtrack.request;
 
+import java.nio.file.Path;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.tuple.Pair;
@@ -22,8 +23,6 @@ import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.tuple.Tuples;
 import org.jetbrains.annotations.NotNull;
 import org.mikeneck.youtrack.request.http.Parameters;
-
-import java.nio.file.Path;
 
 public final class MultipartData implements Parameters<Iterable<MultipartEntry>> {
 
@@ -40,11 +39,12 @@ public final class MultipartData implements Parameters<Iterable<MultipartEntry>>
   @NotNull
   @Override
   public RichIterable<Pair<String, Iterable<MultipartEntry>>> parameters() {
-      return multipart.groupBy(Pair::getOne)
-              .collectValues(Pair::getTwo)
-              .keyMultiValuePairsView()
-              .asLazy()
-              .collect(pair -> Tuples.pair(pair.getOne(), pair.getTwo()));
+    return multipart
+        .groupBy(Pair::getOne)
+        .collectValues(Pair::getTwo)
+        .keyMultiValuePairsView()
+        .asLazy()
+        .collect(pair -> Tuples.pair(pair.getOne(), pair.getTwo()));
   }
 
   public MultipartValue form(@NotNull final String key) {

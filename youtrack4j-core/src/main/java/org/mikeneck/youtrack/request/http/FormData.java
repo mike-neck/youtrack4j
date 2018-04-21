@@ -15,14 +15,13 @@
  */
 package org.mikeneck.youtrack.request.http;
 
+import java.util.List;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.map.ImmutableMap;
 import org.eclipse.collections.api.tuple.Pair;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.Maps;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public final class FormData implements Parameters<List<String>> {
 
@@ -36,13 +35,13 @@ public final class FormData implements Parameters<List<String>> {
     this.form = form;
   }
 
-    @Override
-    @NotNull
-    public RichIterable<Pair<String, List<String>>> parameters() {
-        return form.keyValuesView();
-    }
+  @Override
+  @NotNull
+  public RichIterable<Pair<String, List<String>>> parameters() {
+    return form.keyValuesView();
+  }
 
-    public FormValue form(@NotNull final String key) {
+  public FormValue form(@NotNull final String key) {
     return value -> new FormData(form.newWithKeyValue(key, value));
   }
 
