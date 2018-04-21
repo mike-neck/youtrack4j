@@ -25,3 +25,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+[tasks.googleJavaFormat, tasks.verifyGoogleJavaFormat]*.group = 'formatter'
