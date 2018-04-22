@@ -22,6 +22,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class AccessToken implements Serializable {
 
+  public static final String AUTHORIZATION_HEADER = "Authorization";
+
   private static final long serialVersionUID = 79239078435084L;
 
   private final String accessToken;
@@ -30,7 +32,7 @@ public class AccessToken implements Serializable {
     this.accessToken = accessToken;
   }
 
-  String bearer() {
+  public String bearer() {
     return "Bearer " + accessToken;
   }
 

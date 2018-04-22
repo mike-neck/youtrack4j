@@ -13,22 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.request;
+package org.mikeneck.youtrack.request.http;
 
-import org.mikeneck.youtrack.request.http.FormData;
-import org.mikeneck.youtrack.request.http.HttpClient;
-import org.mikeneck.youtrack.request.http.PostUrl;
+import org.jetbrains.annotations.NotNull;
+import org.mikeneck.youtrack.request.ApiResponse;
+import org.mikeneck.youtrack.request.Handler;
 
-public abstract class PostFromRequest<R> extends PostRequest<R> {
+public interface ResponseExtractor {
 
-  public PostFromRequest(HttpClient client, AccessToken accessToken, PostUrl postUrl) {
-    super(client, accessToken, postUrl);
-  }
-
-  protected abstract FormData formData();
-
-  @Override
-  PostContentType contentType() {
-    return PostContentType.FORM_URLENCODED;
-  }
+  @NotNull
+  <R> ApiResponse<R> executeRequest(@NotNull final Handler.ResponseHandler<R> extractor);
 }
+

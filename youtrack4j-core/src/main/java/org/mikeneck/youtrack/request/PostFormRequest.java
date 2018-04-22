@@ -15,28 +15,29 @@
  */
 package org.mikeneck.youtrack.request;
 
+import org.mikeneck.youtrack.request.http.FormData;
 import org.mikeneck.youtrack.request.http.HttpClient;
 
-public abstract class PostMultipartRequest<R> extends PostRequest<R, HttpClient.PostMultipart> {
+public abstract class PostFormRequest<R> extends PostRequest<R, HttpClient.PostForm> {
 
-  PostMultipartRequest(PostRequestContext context) {
+  public PostFormRequest(PostRequestContext context) {
     super(context);
   }
 
-  abstract MultipartData multipartData();
+  protected abstract FormData formData();
 
   @Override
-  HttpClient.HeaderConfigurer<HttpClient.PostMultipart> post(HttpClient client) {
-    return client.forPostMultipart(postUrl());
+  HttpClient.HeaderConfigurer<HttpClient.PostForm> post(HttpClient client) {
+    return client.forPostForm(postUrl());
   }
 
   @Override
-  ApiResponse<R> execute(HttpClient.PostMultipart post) {
-    return post.withMultiparts(multipartData()).executeRequest(this::extractResult);
+  ApiResponse<R> execute(HttpClient.PostForm post) {
+    return post.withForms(formData()).executeRequest(this::extractResult);
   }
 
   @Override
   PostContentType contentType() {
-    return PostContentType.MULTIPART_FORM_DATA;
+    return PostContentType.FORM_URLENCODED;
   }
 }

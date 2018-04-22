@@ -16,9 +16,16 @@
 package org.mikeneck.youtrack.request;
 
 import java.nio.file.Path;
+import java.util.function.Function;
+
+import org.asynchttpclient.request.body.multipart.FilePart;
+import org.asynchttpclient.request.body.multipart.Part;
+import org.asynchttpclient.request.body.multipart.StringPart;
 import org.jetbrains.annotations.NotNull;
 
 public interface MultipartEntry {
+
+  Function<String, Part> part();
 
   @NotNull
   static MultipartEntry string(@NotNull final String value) {
@@ -50,6 +57,11 @@ class MultipartValue implements MultipartEntry {
   MultipartValue(String value) {
     this.value = value;
   }
+
+  @Override
+  public Function<String, Part> part() {
+    return name -> new StringPart(name, value);
+  }
 }
 
 class MultipartFile implements MultipartEntry {
@@ -58,5 +70,10 @@ class MultipartFile implements MultipartEntry {
 
   MultipartFile(Path file) {
     this.file = file;
+  }
+
+  @Override
+  public Function<String, Part> part() {
+    return name -> new FilePart(name, file.toAbsolutePath().toFile());
   }
 }

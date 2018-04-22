@@ -15,18 +15,8 @@
  */
 package org.mikeneck.youtrack.request.http;
 
-import static org.asynchttpclient.Dsl.get;
-
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import org.asynchttpclient.AsyncHttpClient;
-import org.asynchttpclient.Request;
-import org.asynchttpclient.RequestBuilder;
-import org.asynchttpclient.Response;
-import org.eclipse.collections.api.map.ImmutableMap;
+import org.asynchttpclient.*;
 import org.eclipse.collections.impl.factory.Maps;
-import org.mikeneck.youtrack.request.*;
-import reactor.core.publisher.Mono;
 
 public class AsyncHttpClientBackedHttpClient implements HttpClient {
 
@@ -41,8 +31,19 @@ public class AsyncHttpClientBackedHttpClient implements HttpClient {
   }
 
   @Override
-  public Get forGet(final GetUrl getUrl) {
-    return new GetImpl(getUrl, Maps.immutable.empty(), Maps.immutable.empty());
+  public HeaderConfigurer<Get> forGet(final GetUrl getUrl) {
+    return new GetImpl(
+        getUrl, client::executeRequest, Maps.immutable.empty(), Maps.immutable.empty());
+  }
+
+  @Override
+  public HeaderConfigurer<PostForm> forPostForm(PostUrl postUrl) {
+    return new PostFormImpl(postUrl, client::executeRequest);
+  }
+
+  @Override
+  public HeaderConfigurer<PostMultipart> forPostMultipart(PostUrl postUrl) {
+    return new PostMultipartImpl(postUrl, client::executeRequest);
   }
 
   @Override
@@ -50,70 +51,7 @@ public class AsyncHttpClientBackedHttpClient implements HttpClient {
     client.close();
   }
 
-  private class GetImpl implements HttpClient.Get {
-
-    private final GetUrl getUrl;
-
-    private final ImmutableMap<String, String> headers;
-    private final ImmutableMap<String, String> queries;
-
-    private GetImpl(
-        final GetUrl getUrl,
-        final ImmutableMap<String, String> headers,
-        final ImmutableMap<String, String> queries) {
-      this.getUrl = getUrl;
-      this.headers = headers;
-      this.queries = queries;
-    }
-
-    @Override
-    public Get withHeader(final String headerName, final String headerValue) {
-      return new GetImpl(getUrl, headers.newWithKeyValue(headerName, headerValue), queries);
-    }
-
-    @Override
-    public Get withQueryParameters(final QueryParameters queryParameters) {
-      final ImmutableMap<String, String> map =
-          queryParameters.configureParameters(queries, ImmutableMap::newWithKeyValue);
-      return new GetImpl(getUrl, headers, map);
-    }
-
-    @Override
-    public Get withQueryParameter(final String queryName, final String queryValue) {
-      return new GetImpl(getUrl, headers, queries.newWithKeyValue(queryName, queryValue));
-    }
-
-    @Override
-    public <R> ApiResponse<R> executeRequest(final Handler.BodyHandler<R> extractor) {
-      final RequestBuilder builder = get(getUrl.url);
-      final RequestBuilder headerFin =
-          headers
-              .keyValuesView()
-              .injectInto(builder, (bld, pair) -> bld.addHeader(pair.getOne(), pair.getTwo()));
-      final Request request =
-          queries
-              .keyValuesView()
-              .injectInto(headerFin, (bld, pair) -> bld.addQueryParam(pair.getOne(), pair.getTwo()))
-              .build();
-      final Mono<R> mono =
-          Mono.create(
-              sink -> {
-                final CompletableFuture<Response> future =
-                    client.executeRequest(request).toCompletableFuture();
-                future.thenAccept(
-                    response -> {
-                      final AsyncHttpClientBackedHttpResponse res =
-                          new AsyncHttpClientBackedHttpResponse(response);
-                      final Optional<R> result = extractor.handle(res);
-                      result.ifPresent(sink::success);
-                      if (!result.isPresent()) {
-                        final ApiException exception =
-                            new ApiException(res.getStatusCode(), res.getBody(), res.headers());
-                        sink.error(exception);
-                      }
-                    });
-              });
-      return new MonoBasedResponse<>(mono);
-    }
+  interface RequestExecutor {
+    ListenableFuture<Response> executeRequest(final Request request);
   }
 }

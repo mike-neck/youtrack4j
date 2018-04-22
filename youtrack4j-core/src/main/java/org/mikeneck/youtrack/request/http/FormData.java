@@ -27,12 +27,16 @@ public final class FormData implements Parameters<List<String>> {
 
   private final ImmutableMap<String, List<String>> form;
 
-  public FormData() {
+  private FormData() {
     this.form = Maps.immutable.empty();
   }
 
   private FormData(ImmutableMap<String, List<String>> form) {
     this.form = form;
+  }
+
+  public static FormData empty() {
+    return new FormData();
   }
 
   @Override

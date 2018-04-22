@@ -15,21 +15,54 @@
  */
 package org.mikeneck.youtrack.request.http;
 
-import org.mikeneck.youtrack.request.ApiResponse;
-import org.mikeneck.youtrack.request.Handler;
+import org.asynchttpclient.Request;
+import org.asynchttpclient.RequestBuilder;
+import org.mikeneck.youtrack.request.AccessToken;
+import org.mikeneck.youtrack.request.MultipartData;
 
 public interface HttpClient extends AutoCloseable {
 
-  Get forGet(final GetUrl getUrl);
+  HeaderConfigurer<Get> forGet(final GetUrl getUrl);
 
-  interface Get {
+  HeaderConfigurer<PostForm> forPostForm(final PostUrl postUrl);
 
-    Get withHeader(final String headerName, final String headerValue);
+  HeaderConfigurer<PostMultipart> forPostMultipart(final PostUrl postUrl);
 
-    Get withQueryParameters(final QueryParameters queryParameters);
+  interface RequestBuilderInitializer {
+    RequestBuilder initializeBuilder();
+  }
 
-    Get withQueryParameter(final String queryName, final String queryValue);
+  interface RequestConfigurer {
+    Request configure(final RequestBuilder builder);
+  }
 
-    <R> ApiResponse<R> executeRequest(final Handler.BodyHandler<R> extractor);
+  interface HeaderConfigurer<M extends HeaderConfigurer<M> & ResponseExtractor> {
+
+    default M withAccessToken(final AccessToken accessToken) {
+      return withHeader(AccessToken.AUTHORIZATION_HEADER, accessToken.bearer());
+    }
+
+    default M acceptJson() {
+      return withHeader("Accept", "application/json");
+    }
+
+    M withHeader(final String headerName, final String headerValue);
+  }
+
+  interface Get extends HeaderConfigurer<Get>, ResponseExtractor {
+
+    ResponseExtractor withQueryParameters(final QueryParameters queryParameters);
+  }
+
+  interface Post<P extends Post<P>> extends ResponseExtractor {}
+
+  interface PostForm extends HeaderConfigurer<PostForm>, Post<PostForm> {
+
+    PostForm withForms(final FormData forms);
+  }
+
+  interface PostMultipart extends HeaderConfigurer<PostMultipart>, Post<PostMultipart> {
+
+    PostMultipart withMultiparts(final MultipartData multiparts);
   }
 }

@@ -20,35 +20,36 @@ import org.mikeneck.youtrack.request.http.HttpClient;
 import org.mikeneck.youtrack.request.http.HttpResponse;
 import org.mikeneck.youtrack.request.http.PostUrl;
 
-public abstract class PostRequest<R> implements ApiRequest<R> {
+public abstract class PostRequest<R, P extends HttpClient.Post<P> & HttpClient.HeaderConfigurer<P>>
+    implements ApiRequest<R> {
 
-  private final HttpClient client;
+  private final PostRequestContext context;
 
-  private final AccessToken accessToken;
-
-  private final PostUrl postUrl;
-
-  PostRequest(HttpClient client, AccessToken accessToken, PostUrl postUrl) {
-    this.client = client;
-    this.accessToken = accessToken;
-    this.postUrl = postUrl;
-  }
-
-  protected HttpClient client() {
-    return client;
+  PostRequest(final PostRequestContext context) {
+    this.context = context;
   }
 
   protected AccessToken accessToken() {
-    return accessToken;
+    return context.accessToken;
   }
 
-  protected PostUrl postUrl() {
-    return postUrl;
+  PostUrl postUrl() {
+    return context.postUrl;
   }
 
   abstract PostContentType contentType();
 
-  protected abstract Optional<R> extractResult(final HttpResponse response);
+  abstract Optional<R> extractResult(final HttpResponse response);
+
+  abstract HttpClient.HeaderConfigurer<P> post(final HttpClient client);
+
+  abstract ApiResponse<R> execute(final P post);
+
+  @Override
+  public ApiResponse<R> executeRequest() {
+    final P post = post(context.client).withAccessToken(accessToken()).acceptJson();
+    return execute(post);
+  }
 
   protected enum PostContentType {
     FORM_URLENCODED("application/x-www-form-urlencoded"),

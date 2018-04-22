@@ -16,27 +16,21 @@
 package org.mikeneck.youtrack.request;
 
 import org.mikeneck.youtrack.request.http.HttpClient;
+import org.mikeneck.youtrack.request.http.PostUrl;
 
-public abstract class PostMultipartRequest<R> extends PostRequest<R, HttpClient.PostMultipart> {
+public final class PostRequestContext {
 
-  PostMultipartRequest(PostRequestContext context) {
-    super(context);
+  final HttpClient client;
+  final AccessToken accessToken;
+  final PostUrl postUrl;
+
+  private PostRequestContext(HttpClient client, AccessToken accessToken, PostUrl postUrl) {
+    this.client = client;
+    this.accessToken = accessToken;
+    this.postUrl = postUrl;
   }
 
-  abstract MultipartData multipartData();
-
-  @Override
-  HttpClient.HeaderConfigurer<HttpClient.PostMultipart> post(HttpClient client) {
-    return client.forPostMultipart(postUrl());
-  }
-
-  @Override
-  ApiResponse<R> execute(HttpClient.PostMultipart post) {
-    return post.withMultiparts(multipartData()).executeRequest(this::extractResult);
-  }
-
-  @Override
-  PostContentType contentType() {
-    return PostContentType.MULTIPART_FORM_DATA;
+  public static PostRequestContext of(HttpClient client, AccessToken accessToken, PostUrl postUrl) {
+    return new PostRequestContext(client, accessToken, postUrl);
   }
 }

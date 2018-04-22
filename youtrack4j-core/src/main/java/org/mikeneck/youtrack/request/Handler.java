@@ -23,7 +23,7 @@ public final class Handler {
 
   private Handler() {}
 
-  public interface BodyHandler<R> {
+  public interface ResponseHandler<R> {
     Optional<R> handle(final HttpResponse response);
   }
 
