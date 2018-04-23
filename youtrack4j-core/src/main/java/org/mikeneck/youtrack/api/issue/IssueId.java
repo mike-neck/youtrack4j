@@ -15,6 +15,7 @@
  */
 package org.mikeneck.youtrack.api.issue;
 
+import org.jetbrains.annotations.NotNull;
 import org.mikeneck.youtrack.api.project.ProjectId;
 
 public interface IssueId {
@@ -25,7 +26,15 @@ public interface IssueId {
 
   String issueId();
 
-  String resourceUri();
+  @NotNull
+  static IssueId fromUrl(@NotNull final String url) {
+    return new IssueIdByLocation(url);
+  }
+
+  @NotNull
+  static IssueId fromId(@NotNull String issueId) {
+    return new IssueIdByString(issueId);
+  }
 }
 
 class IssueIdByLocation implements IssueId {
@@ -61,7 +70,37 @@ class IssueIdByLocation implements IssueId {
   }
 
   @Override
-  public String resourceUri() {
-    return resourceUri;
+  public String toString() {
+    return "IssueId[id: " + issueId() + ", url: " + resourceUri + "]";
+  }
+}
+
+class IssueIdByString implements IssueId {
+
+  private final String id;
+
+  IssueIdByString(String id) {
+    if (!id.contains("-")) {
+      throw new IllegalArgumentException(
+          String.format("The issue id would contains '-'. input: %s", id));
+    }
+    this.id = id;
+  }
+
+  @Override
+  public ProjectId projectId() {
+    final String project = id.split("-")[0];
+    return ProjectId.of(project);
+  }
+
+  @Override
+  public int number() {
+    final String number = id.split("-")[1];
+    return Integer.parseInt(number);
+  }
+
+  @Override
+  public String issueId() {
+    return id;
   }
 }

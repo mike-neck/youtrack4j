@@ -22,11 +22,6 @@ class IssueIdByLocationTest {
   }
 
   @Test
-  void resourceUriReturnsOriginalLocation() {
-    assertThat(issueId.resourceUri()).isEqualTo(location);
-  }
-
-  @Test
   void issuIdReturnsTEST200() {
     assertThat(issueId.issueId()).isEqualTo("TEST-200");
   }
