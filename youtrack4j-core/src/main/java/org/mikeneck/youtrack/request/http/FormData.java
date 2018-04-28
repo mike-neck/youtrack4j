@@ -60,10 +60,10 @@ public final class FormData implements Parameters<List<String>> {
       return value(v);
     }
 
-    default FormData value(final String value) {
+    default FormData value(@NotNull final String value) {
       return value(Lists.immutable.of(value).castToList());
     }
 
-    FormData value(final List<String> value);
+    FormData value(@NotNull final List<String> value);
   }
 }

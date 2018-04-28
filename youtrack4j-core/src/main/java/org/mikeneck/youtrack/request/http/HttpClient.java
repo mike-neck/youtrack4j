@@ -42,6 +42,10 @@ public interface HttpClient extends AutoCloseable {
       return withHeader(AccessToken.AUTHORIZATION_HEADER, accessToken.bearer());
     }
 
+    default M withContentType(final String contentType) {
+      return withHeader("Content-Type", contentType);
+    }
+
     default M acceptJson() {
       return withHeader("Accept", "application/json");
     }

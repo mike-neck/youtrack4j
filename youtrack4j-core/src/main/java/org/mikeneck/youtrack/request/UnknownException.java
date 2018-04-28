@@ -13,26 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.mikeneck.youtrack.request.http;
+package org.mikeneck.youtrack.request;
 
-public class PostUrl {
+@SuppressWarnings("serial")
+public class UnknownException extends RuntimeException {
 
-  final String url;
-
-  public PostUrl(String url) {
-    this.url = url;
-  }
-
-  @Override
-  public String toString() {
-    return "POST " + url;
-  }
-
-  public String relativize(String url) {
-    if (url.startsWith(url)) {
-      return url.replace(url, "");
-    } else {
-      return url;
-    }
+  public UnknownException(final String message, final Throwable cause) {
+    super(message, cause);
   }
 }

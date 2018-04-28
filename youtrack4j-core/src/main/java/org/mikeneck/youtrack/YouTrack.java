@@ -19,7 +19,9 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 
 import org.asynchttpclient.AsyncHttpClient;
 import org.jetbrains.annotations.NotNull;
+import org.mikeneck.youtrack.api.issue.create.CreateNewIssue;
 import org.mikeneck.youtrack.api.project.GetAccessibleProjects;
+import org.mikeneck.youtrack.api.project.YouTrackProject;
 import org.mikeneck.youtrack.request.RequestContext;
 import org.mikeneck.youtrack.request.http.AsyncHttpClientBackedHttpClient;
 import org.mikeneck.youtrack.request.http.HttpClient;
@@ -51,6 +53,16 @@ public final class YouTrack implements AutoCloseable {
   @NotNull
   public GetAccessibleProjects getAccessibleProjects() {
     return GetAccessibleProjects.noVerbose(context);
+  }
+
+  @NotNull
+  public CreateNewIssue.Builder createNewIssueInProject(final YouTrackProject project) {
+    return CreateNewIssue.newIssueBuilder(context, project);
+  }
+
+  @NotNull
+  public CreateNewIssue.Builder createNewIssueInProject(final String projectId) {
+    return CreateNewIssue.newIssueBuilder(context, projectId);
   }
 
   @Override

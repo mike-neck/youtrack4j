@@ -15,6 +15,8 @@
  */
 package org.mikeneck.youtrack.request.http;
 
+import static org.asynchttpclient.Dsl.post;
+
 import org.asynchttpclient.Request;
 import org.asynchttpclient.RequestBuilder;
 import org.eclipse.collections.api.map.ImmutableMap;
@@ -23,8 +25,6 @@ import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.Maps;
 import org.eclipse.collections.impl.factory.Multimaps;
 import org.jetbrains.annotations.NotNull;
-
-import static org.asynchttpclient.Dsl.post;
 
 class PostFormImpl extends ResponseExtractorImpl
     implements HttpClient.HeaderConfigurer<HttpClient.PostForm>, HttpClient.PostForm {

@@ -15,12 +15,12 @@
  */
 package org.mikeneck.youtrack.request.http;
 
+import static org.asynchttpclient.Dsl.get;
+
 import org.asynchttpclient.Request;
 import org.asynchttpclient.RequestBuilder;
 import org.eclipse.collections.api.map.ImmutableMap;
 import org.jetbrains.annotations.NotNull;
-
-import static org.asynchttpclient.Dsl.get;
 
 class GetImpl extends ResponseExtractorImpl
     implements HttpClient.HeaderConfigurer<HttpClient.Get>, HttpClient.Get {

@@ -16,6 +16,9 @@
 package org.mikeneck.youtrack.request;
 
 import java.nio.file.Path;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.stream.Collectors;
 import org.eclipse.collections.api.RichIterable;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.tuple.Pair;
@@ -47,8 +50,15 @@ public final class MultipartData implements Parameters<Iterable<MultipartEntry>>
         .collect(pair -> Tuples.pair(pair.getOne(), pair.getTwo()));
   }
 
+  public static MultipartData empty() {
+    return new MultipartData();
+  }
+
   public MultipartValue form(@NotNull final String key) {
-    return value -> new MultipartData(multipart.newWith(Tuples.pair(key, value)));
+    return values ->
+        new MultipartData(
+            multipart.newWithAll(
+                values.stream().map(e -> Tuples.pair(key, e)).collect(Collectors.toList())));
   }
 
   public interface MultipartValue {
@@ -69,6 +79,10 @@ public final class MultipartData implements Parameters<Iterable<MultipartEntry>>
       return value(MultipartEntry.file(value));
     }
 
-    MultipartData value(final MultipartEntry value);
+    default MultipartData value(final MultipartEntry value) {
+      return values(Collections.singleton(value));
+    }
+
+    MultipartData values(final Collection<MultipartEntry> values);
   }
 }

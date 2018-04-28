@@ -43,6 +43,10 @@ public class RequestContext implements AutoCloseable {
     return baseUrl.get(path);
   }
 
+  public PostRequestContext post(final String path) {
+    return PostRequestContext.of(client, accessToken, baseUrl.post(path));
+  }
+
   @Override
   public void close() throws Exception {
     client.close();

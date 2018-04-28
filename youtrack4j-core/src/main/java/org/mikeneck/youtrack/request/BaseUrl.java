@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mikeneck.youtrack.request.http.GetUrl;
+import org.mikeneck.youtrack.request.http.PostUrl;
 
 public class BaseUrl implements Serializable {
 
@@ -36,8 +37,18 @@ public class BaseUrl implements Serializable {
   }
 
   public GetUrl get(final String path) {
-    final String request = baseUrl + "/rest" + (path.startsWith("/") ? "" : "/") + path;
+    final String request = resolvePath(path);
     return new GetUrl(request);
+  }
+
+  @NotNull
+  private String resolvePath(String path) {
+    return baseUrl + "/rest" + (path.startsWith("/") ? "" : "/") + path;
+  }
+
+  PostUrl post(String path) {
+    final String url = resolvePath(path);
+    return new PostUrl(url);
   }
 
   public static Optional<BaseUrl> optional(@Nullable final String baseUrl) {

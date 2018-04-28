@@ -19,11 +19,11 @@ import org.mikeneck.youtrack.request.http.HttpClient;
 
 public abstract class PostMultipartRequest<R> extends PostRequest<R, HttpClient.PostMultipart> {
 
-  PostMultipartRequest(PostRequestContext context) {
+  protected PostMultipartRequest(PostRequestContext context) {
     super(context);
   }
 
-  abstract MultipartData multipartData();
+  protected abstract MultipartData multipartData();
 
   @Override
   HttpClient.HeaderConfigurer<HttpClient.PostMultipart> post(HttpClient client) {

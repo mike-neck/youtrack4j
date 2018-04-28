@@ -36,10 +36,16 @@ public final class Handler {
   }
 
   public interface NextRequest<R, S> {
-    ApiResponse<S> handle(final R result);
+    ApiResponse<S> execute(final R result);
   }
 
   public interface FailureHandler {
     void handle(final FailureResponse failureResponse);
+
+    default void handleException(final Throwable exception) {
+      if (exception instanceof ApiException) {
+        handle(((ApiException) exception));
+      }
+    }
   }
 }

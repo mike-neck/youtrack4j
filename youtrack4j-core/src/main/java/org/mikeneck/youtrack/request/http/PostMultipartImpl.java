@@ -15,21 +15,19 @@
  */
 package org.mikeneck.youtrack.request.http;
 
+import static org.asynchttpclient.Dsl.post;
+
 import org.asynchttpclient.Request;
 import org.asynchttpclient.RequestBuilder;
 import org.asynchttpclient.request.body.multipart.Part;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.map.ImmutableMap;
-import org.eclipse.collections.api.multimap.list.ImmutableListMultimap;
 import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.Maps;
-import org.eclipse.collections.impl.factory.Multimaps;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mikeneck.youtrack.request.MultipartData;
 import org.mikeneck.youtrack.request.MultipartEntry;
-
-import static org.asynchttpclient.Dsl.post;
 
 class PostMultipartImpl extends ResponseExtractorImpl
     implements HttpClient.HeaderConfigurer<HttpClient.PostMultipart>, HttpClient.PostMultipart {
@@ -67,13 +65,15 @@ class PostMultipartImpl extends ResponseExtractorImpl
     final ImmutableList<Part> newMap =
         multiparts
             .configureParameters(
-                    Lists.mutable.<Part>empty(),
+                Lists.mutable.<Part>empty(),
                 (list, key, parts) -> {
-                    final ImmutableList<Part> ps = Lists.immutable.ofAll(parts)
-                            .collect(MultipartEntry::part)
-                            .collect(f -> f.apply(key));
-                    list.addAll(ps.castToList());
-                    return list;
+                  final ImmutableList<Part> ps =
+                      Lists.immutable
+                          .ofAll(parts)
+                          .collect(MultipartEntry::part)
+                          .collect(f -> f.apply(key));
+                  list.addAll(ps.castToList());
+                  return list;
                 })
             .toImmutable();
     return new PostMultipartImpl(postUrl, executeRequest, headers, newMap);
@@ -86,17 +86,18 @@ class PostMultipartImpl extends ResponseExtractorImpl
   }
 
   private Request part(final RequestBuilder requestBuilder) {
-      if (multipartData != null) {
-          return requestBuilder.setBodyParts(multipartData.castToList()).build();
-      }
-      return requestBuilder.build();
+    if (multipartData != null) {
+      return requestBuilder.setBodyParts(multipartData.castToList()).build();
+    }
+    return requestBuilder.build();
   }
 
   @Override
   Request configure(RequestBuilder requestBuilder) {
-      final RequestBuilder headerFin = headers
-              .keyValuesView()
-              .injectInto(requestBuilder, (bld, pair) -> bld.addHeader(pair.getOne(), pair.getTwo()));
-      return part(headerFin);
+    final RequestBuilder headerFin =
+        headers
+            .keyValuesView()
+            .injectInto(requestBuilder, (bld, pair) -> bld.addHeader(pair.getOne(), pair.getTwo()));
+    return part(headerFin);
   }
 }

@@ -39,7 +39,7 @@ public abstract class PostRequest<R, P extends HttpClient.Post<P> & HttpClient.H
 
   abstract PostContentType contentType();
 
-  abstract Optional<R> extractResult(final HttpResponse response);
+  public abstract Optional<R> extractResult(final HttpResponse response);
 
   abstract HttpClient.HeaderConfigurer<P> post(final HttpClient client);
 
@@ -47,15 +47,19 @@ public abstract class PostRequest<R, P extends HttpClient.Post<P> & HttpClient.H
 
   @Override
   public ApiResponse<R> executeRequest() {
-    final P post = post(context.client).withAccessToken(accessToken()).acceptJson();
+    final P post =
+        post(context.client)
+            .withAccessToken(accessToken())
+            .withContentType(contentType().contentType)
+            .acceptJson();
     return execute(post);
   }
 
-  protected enum PostContentType {
+  public enum PostContentType {
     FORM_URLENCODED("application/x-www-form-urlencoded"),
     MULTIPART_FORM_DATA("multipart/form-data");
 
-    private final String contentType;
+    public final String contentType;
 
     PostContentType(String contentType) {
       this.contentType = contentType;

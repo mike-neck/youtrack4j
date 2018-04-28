@@ -17,7 +17,6 @@ package org.mikeneck.youtrack.request;
 
 import java.nio.file.Path;
 import java.util.function.Function;
-
 import org.asynchttpclient.request.body.multipart.FilePart;
 import org.asynchttpclient.request.body.multipart.Part;
 import org.asynchttpclient.request.body.multipart.StringPart;

@@ -24,4 +24,3 @@ public interface ResponseExtractor {
   @NotNull
   <R> ApiResponse<R> executeRequest(@NotNull final Handler.ResponseHandler<R> extractor);
 }
-
