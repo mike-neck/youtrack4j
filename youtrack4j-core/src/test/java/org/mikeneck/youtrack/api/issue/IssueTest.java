@@ -15,38 +15,19 @@
  */
 package org.mikeneck.youtrack.api.issue;
 
-import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.mikeneck.youtrack.Json.getText;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.mikeneck.youtrack.util.Codec;
 
 class IssueTest {
 
   private final Codec codec = Codec.instance();
-
-  private final ClassLoader loader = IssueTest.class.getClassLoader();
-
-  private Stream<String> getResource(final String file) {
-    final InputStream resource = loader.getResourceAsStream(file);
-    final InputStreamReader reader = new InputStreamReader(resource, StandardCharsets.UTF_8);
-    return new BufferedReader(reader).lines();
-  }
-
-  private String getText(final String file) {
-    try (final Stream<String> stream = getResource(file)) {
-      return stream.collect(joining());
-    }
-  }
 
   @Test
   void jsonParse() {

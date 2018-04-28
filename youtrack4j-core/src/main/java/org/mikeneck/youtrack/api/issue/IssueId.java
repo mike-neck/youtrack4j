@@ -35,6 +35,10 @@ public interface IssueId {
   static IssueId fromId(@NotNull String issueId) {
     return new IssueIdByString(issueId);
   }
+
+  default boolean isSameIssue(final IssueId other) {
+    return projectId().equals(other.projectId()) && number() == other.number();
+  }
 }
 
 class IssueIdByLocation implements IssueId {
@@ -73,6 +77,21 @@ class IssueIdByLocation implements IssueId {
   public String toString() {
     return "IssueId[id: " + issueId() + ", url: " + resourceUri + "]";
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof IssueIdByLocation)) return false;
+
+    IssueIdByLocation that = (IssueIdByLocation) o;
+
+    return resourceUri.equals(that.resourceUri);
+  }
+
+  @Override
+  public int hashCode() {
+    return resourceUri.hashCode();
+  }
 }
 
 class IssueIdByString implements IssueId {
@@ -102,5 +121,20 @@ class IssueIdByString implements IssueId {
   @Override
   public String issueId() {
     return id;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof IssueIdByString)) return false;
+
+    IssueIdByString that = (IssueIdByString) o;
+
+    return id.equals(that.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return id.hashCode();
   }
 }
