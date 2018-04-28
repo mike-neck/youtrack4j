@@ -15,15 +15,21 @@
  */
 package org.mikeneck.youtrack.request;
 
+import java.util.function.Consumer;
+
 public interface ApiResponse<R> {
 
   ApiResponse<R> onSuccess(final Handler.SuccessHandler<? super R> successHandler);
 
   <S> ApiResponse<S> map(final Handler.SuccessMapper<? super R, ? extends S> successMapper);
 
-  <S> ApiResponse<S> next(final Handler.NextRequest<? super R, ? extends S> nextRequest);
+  <S> ApiResponse<S> next(final Handler.NextRequest<? super R, S> nextRequest);
 
-  ApiResponse<R> onFailure(final Handler.FailureHandler failureHandler);
+  ApiResponse<R> onError(Consumer<Throwable> errorHandler);
+
+  default ApiResponse<R> onFailure(final Handler.FailureHandler failureHandler) {
+    return onError(failureHandler::handleException);
+  }
 
   R block() throws RuntimeException;
 }

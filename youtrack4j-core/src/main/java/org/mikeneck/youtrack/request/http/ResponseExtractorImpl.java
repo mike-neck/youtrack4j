@@ -15,19 +15,21 @@
  */
 package org.mikeneck.youtrack.request.http;
 
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import org.asynchttpclient.Request;
 import org.asynchttpclient.RequestBuilder;
+import org.asynchttpclient.Response;
 import org.jetbrains.annotations.NotNull;
+import org.mikeneck.youtrack.request.ApiException;
 import org.mikeneck.youtrack.request.ApiResponse;
 import org.mikeneck.youtrack.request.Handler;
-import reactor.core.publisher.Mono;
 
 abstract class ResponseExtractorImpl implements ResponseExtractor {
 
   private final AsyncHttpClientBackedHttpClient.RequestExecutor requestExecutor;
 
-  ResponseExtractorImpl(
-      AsyncHttpClientBackedHttpClient.RequestExecutor requestExecutor) {
+  ResponseExtractorImpl(AsyncHttpClientBackedHttpClient.RequestExecutor requestExecutor) {
     this.requestExecutor = requestExecutor;
   }
 
@@ -42,9 +44,18 @@ abstract class ResponseExtractorImpl implements ResponseExtractor {
     final RequestBuilder requestBuilder = initializeBuilder();
     final Request request = configure(requestBuilder);
 
-    final ResponseFutureHandler<R> futureHandler =
-        new ResponseFutureHandler<>(requestExecutor, extractor, request);
-    final Mono<R> mono = Mono.create(futureHandler);
-    return new MonoBasedResponse<>(mono);
+    final CompletableFuture<Response> response =
+        requestExecutor.executeRequest(request).toCompletableFuture();
+    final CompletableFuture<R> future =
+        response
+            .thenApplyAsync(AsyncHttpClientBackedHttpResponse::new)
+            .thenApplyAsync(
+                res -> {
+                  final Optional<R> result = extractor.handle(res);
+                  return result.orElseThrow(
+                      () -> new ApiException(res.getStatusCode(), res.getBody(), res.headers()));
+                });
+
+    return new FutureBasedApiResponse<>(future);
   }
 }
