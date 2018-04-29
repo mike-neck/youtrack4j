@@ -124,6 +124,15 @@ class IssueIdByString implements IssueId {
   }
 
   @Override
+  public String toString() {
+    //noinspection StringBufferReplaceableByString
+    final StringBuilder sb = new StringBuilder("IssueId[");
+    sb.append("id: ").append(id);
+    sb.append(']');
+    return sb.toString();
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof IssueIdByString)) return false;
